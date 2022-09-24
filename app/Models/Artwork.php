@@ -28,4 +28,9 @@ class Artwork extends Model
     public function categories(){
         return $this->belongsToMany(Categoty::class);
     }
+
+    public function reports()
+    {
+        return $this->morphMany(Report::class, 'reportable');
+    }
 }
