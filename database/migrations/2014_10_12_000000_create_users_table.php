@@ -14,11 +14,15 @@ return new class extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
+            $table->id('u_id');
+            $table->foreignIdFor(App\Models\Wallet::class);
+            $table->foreignIdFor(App\Models\Artist::class)->nullable();
+            $table->string('user_name')->unique();
+            $table->string('display_name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('role')->default('USER');
             $table->rememberToken();
             $table->timestamps();
         });
