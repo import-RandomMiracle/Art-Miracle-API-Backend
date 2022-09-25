@@ -17,7 +17,9 @@ class ArtistFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'citizen_id' => fake()->uuid,
+            'real_name' => fake()->firstName,
+            'address' => fake()->address
         ];
     }
 }
