@@ -17,7 +17,8 @@ class ReportFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'reportable_type' => fake()->randomElement(['App\Models\User','App\Models\Report','App\Models\Comment']),
+            'description' => fake()->realText(30)
         ];
     }
 }

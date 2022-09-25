@@ -22,12 +22,6 @@ class UserFactory extends Factory
         return [
             'user_name' => fake()->userName(),
             'wallet_id' => Wallet::factory()->create()->id,
-            'artist_id' => function () {
-                if(random_int(0,1) == 1)
-                    return Artist::factory()->create()->id;
-                else
-                    return null;
-            },
             'display_name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),

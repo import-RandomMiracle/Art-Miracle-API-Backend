@@ -17,7 +17,9 @@ class ArtworkFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'art_name' => fake()->realText(random_int(15,30)),
+            'path' => fake()->filePath(),
+            'description' => fake()->realText(50)
         ];
     }
 }

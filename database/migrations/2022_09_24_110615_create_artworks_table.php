@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('artworks', function (Blueprint $table) {
-            $table->id('artwork_id');
+            $table->id();
             $table->string('art_name')->unique();
             $table->string('path');
             $table->string('description');

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->integer('reportable_id');
+            $table->integer('reportable_id')->default(1);
             $table->string('reportable_type');
             $table->string('description');
             $table->timestamps();

@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categoties', function (Blueprint $table) {
-            $table->id('c_id');
-            $table->string('category_name')->unique();
+        Schema::create('artwork_category', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(App\Models\Artwork::class);
+            $table->foreignIdFor(App\Models\Category::class);
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categoties');
+        Schema::dropIfExists('artwork_category');
     }
 };

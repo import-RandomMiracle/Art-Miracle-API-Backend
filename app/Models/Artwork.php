@@ -22,11 +22,11 @@ class Artwork extends Model
     }
 
     public function tags(){
-        return $this->belongsToMany(Categoty::class);
+        return $this->belongsToMany(Tag::class);
     }
 
     public function categories(){
-        return $this->belongsToMany(Categoty::class);
+        return $this->belongsToMany(Category::class);
     }
 
     public function reports()

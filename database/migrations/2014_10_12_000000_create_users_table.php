@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id('u_id');
+            $table->id();
             $table->foreignIdFor(App\Models\Wallet::class);
             $table->foreignIdFor(App\Models\Artist::class)->nullable();
             $table->string('user_name')->unique();
