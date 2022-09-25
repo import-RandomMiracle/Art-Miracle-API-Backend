@@ -66,4 +66,8 @@ class User extends Authenticatable
     {
         return $this->morphMany(Report::class, 'reportable');
     }
+
+    public function userReports(){
+        return $this->hasMany(Report::class,'user_report_id');
+    }
 }

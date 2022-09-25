@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(ArtworkSeeder::class);
         $this->call(CommentSeeder::class);
+        $this->call(LikeSeeder::class);
         $this->call(CategorySeeder::class);
         $this->call(TagSeeder::class);
         $this->call(ReportSeeder::class);

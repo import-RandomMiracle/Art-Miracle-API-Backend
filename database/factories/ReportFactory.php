@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,9 @@ class ReportFactory extends Factory
     public function definition()
     {
         return [
-            'reportable_type' => fake()->randomElement(['App\Models\User','App\Models\Report','App\Models\Comment']),
+            'user_report_id' => random_int(1,User::count()),
+            'reportable_id' => random_int(1,10),
+            'reportable_type' => fake()->randomElement(['user','report','comment']),
             'description' => fake()->realText(30)
         ];
     }
