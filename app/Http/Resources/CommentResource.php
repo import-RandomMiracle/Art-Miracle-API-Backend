@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Artwork;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CommentResource extends JsonResource
@@ -14,6 +15,11 @@ class CommentResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'description' => $this->description,
+            'users' => UserResource::collection($this->whenLoaded('users')),
+            'artworks' => ArtworkResource::collection($this->whenLoaded('artworks')),
+        ];
     }
 }
