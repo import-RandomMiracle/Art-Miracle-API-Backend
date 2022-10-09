@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ArtistController;
 use App\Http\Controllers\Api\ArtworkController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\WalletController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,3 +24,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('artists',ArtistController::class);
 Route::apiResource('artworks',ArtworkController::class);
 Route::apiResource('categories',CategoryController::class);
+Route::apiResource('wallets',WalletController::class);
