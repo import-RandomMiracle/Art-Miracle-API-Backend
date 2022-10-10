@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Wallet;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -9,15 +10,16 @@ class UserResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
     {
         return [
             'id' => $this->id,
-            'wallets' => WalletResource::collection($this->whenLoaded('wallets')),
-            'Artist' => ArtistResource::collection($this->whenLoaded('artists')),
+            'temp' => $this->relationLoaded('wallet'),
+            'wallet' => new WalletResource($this->wallet),
+            'artist' => new ArtistResource($this->artist),
             'user_name' => $this->user_name,
             'display_name' => $this->display_name,
             'email' => $this->email,

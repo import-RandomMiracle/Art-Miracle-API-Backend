@@ -47,7 +47,7 @@ class User extends Authenticatable
     }
 
     public function wallet(){
-        return $this->hasOne(Wallet::class);
+        return $this->belongsTo(Wallet::class);
     }
 
     public function likes(){
@@ -59,7 +59,7 @@ class User extends Authenticatable
     }
 
     public function artist(){
-        return $this->hasOne(Artist::class);
+        return $this->belongsTo(Artist::class);
     }
 
     public function reports()
