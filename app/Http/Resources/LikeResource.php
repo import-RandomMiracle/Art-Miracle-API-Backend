@@ -16,8 +16,6 @@ class LikeResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'users' => UserResource::collection($this->whenLoaded('users')),
-            'artworks' => ArtworkResource::collection($this->whenLoaded('artworks'))
         ];
     }
 }
