@@ -18,8 +18,6 @@ class CommentResource extends JsonResource
         return [
             'id' => $this->id,
             'description' => $this->description,
-            'users' => UserResource::collection($this->whenLoaded('users')),
-            'artworks' => ArtworkResource::collection($this->whenLoaded('artworks')),
         ];
     }
 }
