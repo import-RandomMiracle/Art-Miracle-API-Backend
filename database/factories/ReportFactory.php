@@ -20,7 +20,7 @@ class ReportFactory extends Factory
         return [
             'user_report_id' => random_int(1,User::count()),
             'reportable_id' => random_int(1,10),
-            'reportable_type' => fake()->randomElement(['user','report','comment']),
+            'reportable_type' => fake()->randomElement(['user','artwork','comment']),
             'description' => fake()->realText(30)
         ];
     }

@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Relation::enforceMorphMap([
             'user' => 'App\Models\User',
-            'report' => 'App\Models\Report',
+            'artwork' => 'App\Models\Artwork',
             'comment' => 'App\Models\Comment'
         ]);
     }

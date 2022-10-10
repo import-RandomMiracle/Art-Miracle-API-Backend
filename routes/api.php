@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\ArtworkController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\TagController;
+use App\Http\Controllers\Api\ReportController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -27,3 +28,4 @@ Route::apiResource('artworks',ArtworkController::class);
 Route::apiResource('categories',CategoryController::class);
 Route::apiResource('users',UserController::class);
 Route::apiResource('tags',TagController::class);
+Route::apiResource('reports',ReportController::class);

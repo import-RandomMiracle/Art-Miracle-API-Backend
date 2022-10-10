@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ReportResource extends JsonResource
@@ -17,23 +16,20 @@ class ReportResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user_report_id' => UserResource::collection($this->whenLoaded('users')),
-            'reportable_id' => UserResource::collection($this->whenLoaded('users')),
-            'reportable_type' => $this->when($this->whenLoaded('reportable'), function () {
-                if ($this->reportable_type->reportable instanceof App\Artwork) {
-                    return new ArtworkResource($this->reportable_type->reportable);
-                }
-                if ($this->reportable_type->reportable instanceof App\User) {
-                    return new UserResource($this->reportable_type->reportable);
-                }
-
-                if ($this->reportable_type->reportable instanceof App\Comment) {
-                    return new CommentResource($this->reportable_type->reportable);
-                }
-
-                return null;
+            'reporter_id' => $this->user_report_id,
+            'report_type' => $this->reportable_type,
+            'reportable_id' => $this->when($this->whenLoaded('reportable'), function () {
+//                if ($this->reportable_type == 'artwork') {
+//                    return new ArtworkResource($this->reportable);
+//                }
+//                if ($this->reportable_type == 'user') {
+//                    return new UserResource($this->reportable);
+//                }
+//                if ($this->reportable_type == 'comment') {
+//                    return new CommentResource($this->reportable);
+//                }
+                return $this->reportable_id;
             }),
-
             'description' => $this->description,
         ];
     }
