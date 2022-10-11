@@ -19,6 +19,7 @@ class ArtworkFactory extends Factory
         return [
             'art_name' => fake()->realText(random_int(15,30)),
             'path' => fake()->filePath(),
+            'price' => fake()->optional()->randomFloat(1,10000),
             'description' => fake()->realText(50)
         ];
     }

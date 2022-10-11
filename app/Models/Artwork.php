@@ -33,4 +33,8 @@ class Artwork extends Model
     {
         return $this->morphMany(Report::class, 'reportable');
     }
+
+    public function artist(){
+        return $this->belongsTo(Artist::class);
+    }
 }

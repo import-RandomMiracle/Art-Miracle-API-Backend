@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Artist;
 use App\Models\Artwork;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -16,10 +17,13 @@ class ArtworkSeeder extends Seeder
      */
     public function run()
     {
-        Artwork::factory(30)->create();
+        $artist_ids = Artist::select(['id'])->get();
+        Artwork::factory(30)->create([
+            'artist_id' => $artist_ids->random()->id,
+        ]);
 
         $users = User::get();
-        $users->each(function($user, $key) {
+        $users->each(function ($user, $key) {
             $n = fake()->numberBetween(1, 5);
             $artwork_ids = Artwork::inRandomOrder()->limit($n)->get()->pluck(['id'])->all();
             $user->artworks()->sync($artwork_ids);
