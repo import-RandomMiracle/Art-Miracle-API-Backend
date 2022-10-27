@@ -17,10 +17,14 @@ class ArtworkFactory extends Factory
     public function definition()
     {
         return [
-            'art_name' => fake()->realText(random_int(15,30)),
+            'art_name' => fake()->realText(random_int(15, 30)),
             'path' => fake()->filePath(),
-            'price' => fake()->optional()->randomFloat(1,10000),
-            'description' => fake()->realText(50)
-        ];
+            'price' => function () {
+                $price = fake()->optional()->randomFloat(3, 0, 600.00);
+                if ($price != null)
+                    return number_format($price, 2, '.', '');
+                return null;
+            },
+            'description' => fake()->realText(50)];
     }
 }

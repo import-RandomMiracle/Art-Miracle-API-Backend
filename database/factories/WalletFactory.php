@@ -17,7 +17,8 @@ class WalletFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'balance' => number_format(fake()->randomFloat(3,100.00,600.00),2, '.', ''),
+            'point' => fake()->randomNumber(5),
         ];
     }
 }

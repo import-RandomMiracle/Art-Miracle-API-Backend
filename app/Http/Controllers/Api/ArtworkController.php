@@ -16,7 +16,7 @@ class ArtworkController extends Controller
      */
     public function index()
     {
-        $artworks = Artwork::get();
+        $artworks = Artwork::with(['comments','tags','categories','likes'])->get();
         return ArtworkResource::collection($artworks);
     }
 

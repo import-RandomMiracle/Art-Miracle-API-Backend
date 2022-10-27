@@ -17,8 +17,8 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'wallet' => new WalletResource($this->wallet),
-            'artist' => new ArtistResource($this->artist),
+            'wallet' => new WalletResource($this->whenLoaded('wallet')),
+            'artist' => new ArtistResource($this->whenLoaded('artist')),
             'user_name' => $this->user_name,
             'display_name' => $this->display_name,
             'email' => $this->email,

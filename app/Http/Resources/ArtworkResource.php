@@ -22,10 +22,10 @@ class ArtworkResource extends JsonResource
             'artist' => User::select(['id','artist_id', 'user_name', 'display_name'])->where('artist_id', $this->id)->get(),
             'price' => $this->price,
             'path' => $this->path,
-            'comments' => CommentResource::collection($this->comments),
-            'tags' => TagResource::collection($this->tags),
-            'categories' => CategoryResource::collection($this->categories),
-            'likes_count' => count(LikeResource::collection($this->likes)),
+            'comments' => CommentResource::collection($this->whenLoaded('comments')),
+            'tags' => TagResource::collection($this->whenLoaded('tags')),
+            'categories' => CategoryResource::collection($this->whenLoaded('categories')),
+            'likes_count' => count(LikeResource::collection($this->whenLoaded('likes'))),
             'description' => $this->description,
         ];
     }
