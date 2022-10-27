@@ -1,22 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Resources\ArtworkResource;
 use App\Models\Artwork;
 use Illuminate\Http\Request;
 
-class ArtworkController extends Controller
+class SelectArtworkController extends Controller
 {
+
+    private const ARTWORK_PER_PAGE = 10;
+
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function index($pageNumber = 0)
     {
-        //
+        $artworks = Artwork::with(['comments','tags','categories','likes'])->paginate(SelectArtworkController::ARTWORK_PER_PAGE, ['*'], 'page', $pageNumber);
+        return ArtworkResource::collection($artworks);
     }
 
     /**
@@ -37,17 +40,6 @@ class ArtworkController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Artwork $artwork)
-    {
-        return $artwork;
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Artwork  $artwork
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Artwork $artwork)
     {
         //
     }

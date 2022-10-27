@@ -8,6 +8,8 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\TagController;
 use App\Http\Controllers\Api\ReportController;
+use App\Http\Controllers\SelectArtworkController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,9 +25,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('artists',ArtistController::class);
-Route::apiResource('artworks',ArtworkController::class);
-Route::apiResource('categories',CategoryController::class);
-Route::apiResource('users',UserController::class);
-Route::apiResource('tags',TagController::class);
-Route::apiResource('reports',ReportController::class);
+Route::get('/artworks/page/{pageNumber}', [SelectArtworkController::class, 'index']);
+
+Route::apiResources([
+    'artists'       => ArtistController::class,
+    'artworks'      => ArtworkController::class,
+    'categories'    => CategoryController::class,
+    'users'         => UserController::class,
+    'tags'          => TagController::class,
+    'reports'       => ReportController::class,
+]);
