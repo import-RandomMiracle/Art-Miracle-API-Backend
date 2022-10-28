@@ -9,6 +9,14 @@ class Artwork extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'art_name',
+        'path',
+        'description',
+        'artist_id',
+        'price'
+    ];
+
     public function users() {
         return $this->belongsToMany(User::class);
     }

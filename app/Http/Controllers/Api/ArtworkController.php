@@ -27,7 +27,15 @@ class ArtworkController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $artwork = Artwork::create([
+            'artist_id' => $request->artist_id,
+            'art_name' => $request->art_name,
+            'path' => $request->path,
+            'price' => $request->price,
+            'description' => $request->description,
+        ]);
+
+        return $artwork;
     }
 
     /**
