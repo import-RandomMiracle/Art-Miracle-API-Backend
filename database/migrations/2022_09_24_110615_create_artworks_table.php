@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('artworks', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Artist::class);
-            $table->string('art_name')->unique();
+            $table->string('art_name');
             $table->string('path');
             $table->unsignedDouble('price')->nullable();
             $table->string('description');
