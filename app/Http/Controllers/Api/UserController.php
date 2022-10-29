@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Collection\UserCollection;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -16,9 +17,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with(['artist','wallet'])->get();
-//        return UserResource::collection($users);
-        return UserResource::collection($users);
+        $users = User::with(['artist','wallet','followers','followees'])->all();
+        return new UserCollection($users);
     }
 
     /**
