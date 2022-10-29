@@ -85,22 +85,8 @@ class ArtworkController extends Controller
      */
     public function destroy(Artwork $artwork)
     {
-        $deletingArtwork = new Artwork([
-            'artist_id'     => $artwork->artist_id,
-            'art_name'      => $artwork->art_name,
-            'path'          => $artwork->path,
-            'price'         => $artwork->price,
-            'description'   => $artwork->description,
-        ]);
-
-        $artwork->categories()->detach($artwork->categories);
-
-        foreach ($artwork->tags as $tag) {
-            $artwork->tags()->detach($tag);
-        }
-
         $artwork->delete();
 
-        return $deletingArtwork;
+        return $artwork;
     }
 }

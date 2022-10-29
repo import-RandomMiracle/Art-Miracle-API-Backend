@@ -21,16 +21,6 @@ class ReportController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -38,7 +28,14 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $report = Report::create([
+            'user_report_id'    => $request->user_report_id,
+            'reportable_id'     => $request->reportable_id,
+            'reportable_type'   => $request->reportable_type,
+            'description'       => $request->description,
+        ]);
+
+        return $report;
     }
 
     /**
@@ -49,18 +46,7 @@ class ReportController extends Controller
      */
     public function show(Report $report)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Report  $report
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Report $report)
-    {
-        //
+        return $report;
     }
 
     /**
@@ -72,7 +58,7 @@ class ReportController extends Controller
      */
     public function update(Request $request, Report $report)
     {
-        //
+        return "method not allowed.";
     }
 
     /**
@@ -83,6 +69,7 @@ class ReportController extends Controller
      */
     public function destroy(Report $report)
     {
-        //
+        $report->delete();
+        return $report;
     }
 }
