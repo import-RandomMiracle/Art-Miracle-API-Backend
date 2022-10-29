@@ -22,6 +22,13 @@ class UserResource extends JsonResource
             'has_artworks' => ArtworkResource::collection($this->whenLoaded('artworks')),
             'user_name' => $this->user_name,
             'display_name' => $this->display_name,
+            'follower_count' => $this->whenLoaded('followers', function () {
+                return $this->followers()->count();
+            }),
+
+            'following_count' => $this->whenLoaded('followees', function () {
+                return $this->followees()->count();
+            }),
             'email' => $this->email,
             'role' => $this->role
         ];
