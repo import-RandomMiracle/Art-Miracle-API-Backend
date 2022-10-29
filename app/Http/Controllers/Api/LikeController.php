@@ -16,8 +16,7 @@ class LikeController extends Controller
      */
     public function index()
     {
-        $likes = Like::get();
-        return LikeResource::collection($likes);
+        //
     }
 
     /**

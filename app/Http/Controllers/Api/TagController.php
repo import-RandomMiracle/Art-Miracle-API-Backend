@@ -21,16 +21,6 @@ class TagController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -38,7 +28,11 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tag = Tag::create([
+            'tag_name' => $request->tag_name,
+        ]);
+
+        return $tag;
     }
 
     /**
@@ -49,18 +43,7 @@ class TagController extends Controller
      */
     public function show(Tag $tag)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Tag  $tag
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Tag $tag)
-    {
-        //
+        return $tag;
     }
 
     /**
@@ -72,7 +55,7 @@ class TagController extends Controller
      */
     public function update(Request $request, Tag $tag)
     {
-        //
+        return "method not allowed.";
     }
 
     /**
@@ -83,6 +66,7 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
+        return $tag;
     }
 }

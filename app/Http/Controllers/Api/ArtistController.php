@@ -68,12 +68,7 @@ class ArtistController extends Controller
      */
     public function destroy(Artist $artist)
     {
-        $deletingArtist = new Artist([
-            'citizen_id'    => $artist->citizen_id,
-            'real_name'     => $artist->real_name,
-            'address'       => $artist->address,
-        ]);
         $artist->delete();
-        return $deletingArtist;
+        return $artist;
     }
 }
