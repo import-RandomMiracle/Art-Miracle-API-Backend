@@ -9,9 +9,10 @@ class Artist extends Model
 {
     use HasFactory;
 
-    protected $hidden = [
-        'created_at',
-        'updated_at'
+    protected $fillable = [
+        'citizen_id',
+        'real_name',
+        'address',
     ];
 
     public function user(){

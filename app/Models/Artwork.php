@@ -11,10 +11,12 @@ class Artwork extends Model
 
     protected $fillable = [
         'art_name',
+        'artist_id',
+        'price',
         'path',
         'description',
-        'artist_id',
-        'price'
+        'categories',
+        'tags',
     ];
 
     public function users() {
