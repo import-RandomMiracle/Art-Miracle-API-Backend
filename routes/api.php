@@ -5,10 +5,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ArtistController;
 use App\Http\Controllers\Api\ArtworkController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\TagController;
 use App\Http\Controllers\Api\ReportController;
-use App\Http\Controllers\LikeController;
 use App\Http\Controllers\SelectArtworkController;
 
 /*
@@ -35,5 +35,5 @@ Route::apiResources([
     'users'         => UserController::class,
     'tags'          => TagController::class,
     'reports'       => ReportController::class,
-    'likes'         => LikeController::class,
+    'likes'         => LikeController::class
 ]);

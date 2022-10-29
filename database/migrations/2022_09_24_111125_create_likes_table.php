@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\User::class);
             $table->foreignIdFor(\App\Models\Artwork::class);
-            $table->boolean('liked');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
