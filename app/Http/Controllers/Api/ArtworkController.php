@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class ArtworkController extends Controller
 {
+    public function index(){
+        $artworks = Artwork::with(['artist', 'tags','categories','comments','likes'])->get();
+        return ArtworkResource::collection($artworks);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

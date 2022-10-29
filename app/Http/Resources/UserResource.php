@@ -19,6 +19,7 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'wallet' => new WalletResource($this->whenLoaded('wallet')),
             'artist' => new ArtistResource($this->whenLoaded('artist')),
+            'has_artworks' => ArtworkResource::collection($this->whenLoaded('artworks')),
             'user_name' => $this->user_name,
             'display_name' => $this->display_name,
             'email' => $this->email,
