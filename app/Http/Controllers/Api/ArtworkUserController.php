@@ -36,7 +36,7 @@ class ArtworkUserController extends Controller
      */
     public function show($id)
     {
-        $artworks = User::findOrFail($id)
+        $artworks = User::findOrFail($id);
         return $artworks;
     }
 

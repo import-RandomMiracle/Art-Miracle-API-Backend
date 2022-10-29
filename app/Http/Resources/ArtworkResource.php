@@ -21,7 +21,7 @@ class ArtworkResource extends JsonResource
             'id' => $this->id,
             'art_name' => $this->art_name,
             // 'artist' => User::select(['id','artist_id', 'user_name', 'display_name'])->where('artist_id', $this->id)->get(),
-            'artist' => new ArtistResource($this->whenLoaded('artist')),
+            'artist' => Artist::find($this->artist_id),
             'price' => $this->price,
             'path' => $this->path,
             'comments' => CommentResource::collection($this->whenLoaded('comments')),
