@@ -17,6 +17,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::with(['artist','wallet'])->get();
+//        return UserResource::collection($users);
         return UserResource::collection($users);
     }
 
