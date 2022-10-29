@@ -41,7 +41,6 @@ class LikeController extends Controller
         $like = new Like();
         $like->user_id = $request->user_id;
         $like->artwork_id = $request->artwork_id;
-        $like->liked = True;
         $like->save();
 
         return $like;
@@ -66,17 +65,7 @@ class LikeController extends Controller
      */
     public function edit(Request $request)
     {
-        if($request->liked == 'true'){
-            $like = Like::where('user_id', $request->user_id)->where('artwork_id', $request->artwork_id)->first();
-            $like->liked = False;
-            $like->save();
-            return $like;
-        } else {
-            $like = Like::where('user_id', $request->user_id)->where('artwork_id', $request->artwork_id)->first();
-            $like->liked = True;
-            $like->save();
-            return $like;
-        }
+        //
     }
     /**
      * Update the specified resource in storage.

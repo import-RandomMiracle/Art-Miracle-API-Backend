@@ -38,7 +38,14 @@ class ArtworkController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $artwork = new Artwork();
+        $artwork->title = $request->title;
+        $artwork->description = $request->description;
+        $artwork->image = $request->image;
+        $artwork->user_id = $request->user_id; 
+        $artwork->save();
+
+        return $artwork;
     }
 
     /**
@@ -72,7 +79,13 @@ class ArtworkController extends Controller
      */
     public function update(Request $request, Artwork $artwork)
     {
-        //
+        $artwork->title = $request->title;
+        $artwork->description = $request->description;
+        $artwork->image = $request->image;
+        $artwork->user_id = $request->user_id;
+        $artwork->save();
+
+        return $artwork;
     }
 
     /**
@@ -83,6 +96,6 @@ class ArtworkController extends Controller
      */
     public function destroy(Artwork $artwork)
     {
-        //
+        $artwork->delete();
     }
 }
