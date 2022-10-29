@@ -6,22 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ArtworkResource;
 use App\Models\Artwork;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class ArtworkController extends Controller
 {
     public function index(){
-        $artworks = Artwork::with(['artist', 'tags','categories','comments','likes'])->get();
+        $artworks = Artwork::get();
         return ArtworkResource::collection($artworks);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -33,12 +24,18 @@ class ArtworkController extends Controller
     public function store(Request $request)
     {
         $artwork = Artwork::create([
-            'artist_id' => $request->artist_id,
-            'art_name' => $request->art_name,
-            'path' => $request->path,
-            'price' => $request->price,
-            'description' => $request->description,
+            'artist_id'     => $request->artist_id,
+            'art_name'      => $request->art_name,
+            'path'          => $request->path,
+            'price'         => $request->price,
+            'description'   => $request->description,
         ]);
+
+        $artwork->categories()->attach($request->categories);
+
+        foreach ($request->tags as $tag) {
+            $artwork->tags()->attach($tag);
+        }
 
         return $artwork;
     }
@@ -55,17 +52,6 @@ class ArtworkController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Artwork  $artwork
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Artwork $artwork)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -74,7 +60,21 @@ class ArtworkController extends Controller
      */
     public function update(Request $request, Artwork $artwork)
     {
-        //
+        $artwork->price         = $request->price;
+        $artwork->description   = $request->description;
+
+        $artwork->categories()->detach($artwork->categories);
+        $artwork->categories()->attach($request->categories);
+
+        foreach ($artwork->tags as $tag) {
+            $artwork->tags()->detach($tag);
+        }
+
+        foreach ($request->tags as $tag) {
+            $artwork->tags()->attach($tag);
+        }
+
+        return $artwork;
     }
 
     /**
@@ -85,6 +85,22 @@ class ArtworkController extends Controller
      */
     public function destroy(Artwork $artwork)
     {
-        //
+        $deletingArtwork = new Artwork([
+            'artist_id'     => $artwork->artist_id,
+            'art_name'      => $artwork->art_name,
+            'path'          => $artwork->path,
+            'price'         => $artwork->price,
+            'description'   => $artwork->description,
+        ]);
+
+        $artwork->categories()->detach($artwork->categories);
+
+        foreach ($artwork->tags as $tag) {
+            $artwork->tags()->detach($tag);
+        }
+
+        $artwork->delete();
+
+        return $deletingArtwork;
     }
 }
