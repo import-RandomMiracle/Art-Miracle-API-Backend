@@ -13,12 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('likes', function (Blueprint $table) {
+        Schema::create('follows', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\User::class);
-            $table->foreignIdFor(\App\Models\Artwork::class);
+            $table->unsignedBigInteger('followee_id');
+            $table->unsignedBigInteger('follower_id');
             $table->timestamps();
-            $table->softDeletes();
+
+            $table->foreign('follower_id')->references('id')->on('users');
+            $table->foreign('followee_id')->references('id')->on('users');
+
+            $table->index(['follower_id', 'followee_id']);
         });
     }
 
@@ -29,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('likes');
+        Schema::dropIfExists('follows');
     }
 };

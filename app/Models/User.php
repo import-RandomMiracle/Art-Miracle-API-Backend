@@ -62,12 +62,19 @@ class User extends Authenticatable
         return $this->belongsTo(Artist::class);
     }
 
-    public function reports()
-    {
+    public function reports(){
         return $this->morphMany(Report::class, 'reportable');
     }
 
     public function userReports(){
         return $this->hasMany(Report::class,'user_report_id');
+    }
+
+    public function followers(){
+        return $this->hasMany(Follow::class, 'follower_id');
+    }
+
+    public function followees(){
+        return $this->hasMany(Follow::class, 'followee_id');
     }
 }

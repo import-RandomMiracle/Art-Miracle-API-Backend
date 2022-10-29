@@ -2,26 +2,25 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Http\Resources\ArtworkResource;
 use App\Models\Artwork;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class ArtworkController extends Controller
+class SelectArtworkController extends Controller
 {
-    public function index(){
-        $artworks = Artwork::with(['artist', 'tags','categories','comments','likes'])->get();
-        return ArtworkResource::collection($artworks);
-    }
+
+    private const ARTWORK_PER_PAGE = 10;
 
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function index($pageNumber = 0)
     {
-        //
+        $artworks = Artwork::with(['comments','tags','categories','likes'])->paginate(SelectArtworkController::ARTWORK_PER_PAGE, ['*'], 'page', $pageNumber);
+        return ArtworkResource::collection($artworks);
     }
 
     /**
@@ -32,15 +31,7 @@ class ArtworkController extends Controller
      */
     public function store(Request $request)
     {
-        $artwork = Artwork::create([
-            'artist_id' => $request->artist_id,
-            'art_name' => $request->art_name,
-            'path' => $request->path,
-            'price' => $request->price,
-            'description' => $request->description,
-        ]);
-
-        return $artwork;
+        //
     }
 
     /**
@@ -50,17 +41,6 @@ class ArtworkController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Artwork $artwork)
-    {
-        return $artwork;
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Artwork  $artwork
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Artwork $artwork)
     {
         //
     }

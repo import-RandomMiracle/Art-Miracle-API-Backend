@@ -4,18 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Like extends Model
+class Follow extends Model
 {
     use HasFactory;
-    use SoftDeletes;
 
-    public function user(){
+    public function followee(){
         return $this->belongsTo(User::class);
     }
 
-    public function artwork(){
-        return $this->belongsTo(Artwork::class);
+    public function follower(){
+        return $this->belongsTo(User::class);
     }
 }
