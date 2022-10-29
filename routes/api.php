@@ -5,12 +5,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ArtistController;
 use App\Http\Controllers\Api\ArtworkController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\TagController;
 use App\Http\Controllers\Api\ReportController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\LikeController;
-use App\Http\Controllers\SelectArtworkController;
+use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\SelectArtworkController;
 
 /*
 |--------------------------------------------------------------------------

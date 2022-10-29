@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Resources\ArtworkResource;
 use App\Models\Artwork;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class SelectArtworkController extends Controller
 {

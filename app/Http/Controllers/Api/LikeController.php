@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Models\Like;
-use App\Models\Artwork;
-use App\Models\User;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\LikeResource;
 
 class LikeController extends Controller
 {
@@ -16,7 +16,8 @@ class LikeController extends Controller
      */
     public function index()
     {
-        return $this->countLikes();
+        $likes = Like::get();
+        return LikeResource::collection($likes);
     }
 
     /**
@@ -86,7 +87,9 @@ class LikeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $like = Like::withTrashed()->find($id)->restore();
+
+        return $like;
     }
 
     /**
@@ -95,13 +98,9 @@ class LikeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($request)
+    public function destroy(Like $like)
     {
         // Artwork::user()->likes()->where('artwork_id', $id)->first()->delete();
+        $like->delete();
     }
 }
-
-
-
-
-
