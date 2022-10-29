@@ -16,8 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with(['artist','wallet'])->get();
-//        return UserResource::collection($users);
+        $users = User::with(['artist', 'wallet', 'artworks','followers','followees'])->get();
         return UserResource::collection($users);
     }
 
@@ -50,7 +49,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return new UserResource(User::with(['artist', 'wallet', 'artworks'])->find($user->id));
     }
 
     /**

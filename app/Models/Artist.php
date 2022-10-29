@@ -9,12 +9,17 @@ class Artist extends Model
 {
     use HasFactory;
 
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
+
     public function user(){
         return $this->hasOne(User::class);
     }
 
     public function artworks(){
-        return $this->hasMany(Artwork::class);
+        return $this->hasManyThrough(Artwork::class, Artist::class, 'artist_id', 'artwork_id', 'id', 'id');
     }
 
 }

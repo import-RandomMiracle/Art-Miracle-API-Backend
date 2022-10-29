@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ArtistController;
 use App\Http\Controllers\Api\ArtworkController;
+use App\Http\Controllers\Api\ArtworkUserController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\UserController;
@@ -37,5 +38,6 @@ Route::apiResources([
     'tags'          => TagController::class,
     'reports'       => ReportController::class,
     'likes'         => LikeController::class,
-    'comments'      => CommentController::class
+    'comments'      => CommentController::class,
+    'user/artwork'  => ArtworkUserController::class,
 ]);
