@@ -16,6 +16,9 @@ class ArtworkResource extends JsonResource
      */
     public function toArray($request)
     {
+        // $count = function () {
+
+        // };
         return [
             'id' => $this->id,
             'art_name' => $this->art_name,

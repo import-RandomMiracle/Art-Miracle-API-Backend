@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class ArtworkController extends Controller
 {
+    public function index(){
+        $artworks = Artwork::get();
+        return ArtworkResource::collection($artworks);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
