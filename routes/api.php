@@ -9,7 +9,8 @@ use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\TagController;
 use App\Http\Controllers\Api\ReportController;
-use App\Http\Controllers\SelectArtworkController;
+use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\SelectArtworkController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,5 +36,6 @@ Route::apiResources([
     'users'         => UserController::class,
     'tags'          => TagController::class,
     'reports'       => ReportController::class,
-    'likes'         => LikeController::class
+    'likes'         => LikeController::class,
+    'comments'      => CommentController::class
 ]);
