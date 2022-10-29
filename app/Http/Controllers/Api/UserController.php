@@ -49,7 +49,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return new UserResource(User::with(['artist', 'wallet', 'artworks'])->find($user->id));
     }
 
     /**

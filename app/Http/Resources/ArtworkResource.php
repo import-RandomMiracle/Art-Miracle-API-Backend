@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\Artist;
+use App\Models\Like;
 use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,19 +17,19 @@ class ArtworkResource extends JsonResource
      */
     public function toArray($request)
     {
-        // $count = function () {
-
-        // };
         return [
             'id' => $this->id,
             'art_name' => $this->art_name,
-            'artist' => User::select(['id','artist_id', 'user_name', 'display_name'])->where('artist_id', $this->id)->get(),
+            // 'artist' => User::select(['id','artist_id', 'user_name', 'display_name'])->where('artist_id', $this->id)->get(),
+            'artist' => new ArtistResource($this->whenLoaded('artist')),
             'price' => $this->price,
             'path' => $this->path,
             'comments' => CommentResource::collection($this->whenLoaded('comments')),
             'tags' => TagResource::collection($this->whenLoaded('tags')),
             'categories' => CategoryResource::collection($this->whenLoaded('categories')),
-            'likes_count' => count(LikeResource::collection($this->whenLoaded('likes'))),
+            'likes_count' => $this->whenLoaded('likes', function () {
+                return $this->likes()->count();
+            }),
             'description' => $this->description,
         ];
     }
