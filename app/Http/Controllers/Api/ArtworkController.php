@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Http;
 
 class ArtworkController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+    
     public function index(){
         $artworks = Artwork::get();
         return ArtworkResource::collection($artworks);

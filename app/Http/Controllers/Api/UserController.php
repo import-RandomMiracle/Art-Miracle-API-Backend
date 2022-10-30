@@ -5,10 +5,16 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Models\Wallet;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -28,11 +34,13 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $wallet = Wallet::create();
         $user = User::create([
             'user_name'         => $request->user_name,
             'display_name'      => $request->display_name,
             'email'             => $request->email,
             'password'          => $request->password,
+            'wallet_id'         => $wallet->id,
         ]);
         return $user;
     }
