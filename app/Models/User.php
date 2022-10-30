@@ -84,6 +84,10 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Follow::class, 'followee_id');
     }
 
+    public function image(){
+        return $this->belongsTo(Image::class);
+    }
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *

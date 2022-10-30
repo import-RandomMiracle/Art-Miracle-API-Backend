@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Artist;
+use App\Models\Image;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,9 +17,9 @@ return new class extends Migration
     {
         Schema::create('artworks', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Artist::class);
+            $table->foreignIdFor(Artist::class);
+            $table->foreignIdFor(Image::class);
             $table->string('art_name');
-            $table->string('path');
             $table->unsignedDouble('price')->nullable();
             $table->string('description');
             $table->timestamps();
