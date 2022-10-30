@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ImageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ArtistController;
@@ -29,7 +30,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/artworks/page/{pageNumber}', [SelectArtworkController::class, 'index']);
+Route::post('upload',[ImageController::class,'store']);
+Route::get('download', [ImageController::class, 'download']);
+Route::delete('delete',[ImageController::class, 'delete']);
 
+Route::controller(ImageController::class)->group(function (){
+    Route::post('upload','store');
+    Route::get('download', 'download');
+    Route::delete('delete', 'delete');
+});
 Route::apiResources([
     'artists'       => ArtistController::class,
     'artworks'      => ArtworkController::class,
@@ -41,3 +50,4 @@ Route::apiResources([
     'comments'      => CommentController::class,
     'user/artwork'  => ArtworkUserController::class,
 ]);
+
