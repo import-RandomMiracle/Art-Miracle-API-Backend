@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\TagController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\SelectArtworkController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,8 +25,15 @@ use App\Http\Controllers\Api\SelectArtworkController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::controller(AuthController::class)->group(function () {
+    Route::post('login', 'login');
+    Route::post('register', 'register');
+    Route::post('logout', 'logout');
+    Route::post('refresh', 'refresh');
 });
 
 Route::get('/artworks/page/{pageNumber}', [SelectArtworkController::class, 'index']);
@@ -39,5 +47,5 @@ Route::apiResources([
     'reports'       => ReportController::class,
     'likes'         => LikeController::class,
     'comments'      => CommentController::class,
-    'user/artwork'  => ArtworkUserController::class,
+    // 'user/artwork'  => ArtworkUserController::class,
 ]);
