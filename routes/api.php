@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\SelectArtworkController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Api\WalletController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,5 +48,6 @@ Route::apiResources([
     'reports'       => ReportController::class,
     'likes'         => LikeController::class,
     'comments'      => CommentController::class,
+    'wallets'       => WalletController::class,
     // 'user/artwork'  => ArtworkUserController::class,
 ]);
