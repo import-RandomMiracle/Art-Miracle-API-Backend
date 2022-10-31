@@ -30,6 +30,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/artworks/page/{pageNumber}', [SelectArtworkController::class, 'index']);
 
+Route::controller(ImageController::class)->group(function (){
+    Route::post('upload','store');
+    Route::get('download/{id}', 'download');
+    Route::get('show/{id}','show');
+    Route::delete('destroy/{id}', 'destroy');
+});
+
 Route::apiResources([
     'artists'       => ArtistController::class,
     'artworks'      => ArtworkController::class,

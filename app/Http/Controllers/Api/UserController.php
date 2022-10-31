@@ -60,6 +60,18 @@ class UserController extends Controller
     {
         $user->display_name = $request->display_name;
 
+        if($request->hasFile('avatar')) {
+            //delete old profile image
+            redirect()->action(
+                'ImageController@deleteImage', ['path' => $user->image]
+            );
+
+            //save new profile image
+            $user->path = redirect()->action(
+                'ImageController@store', ['request' => $request]
+            );
+        }
+
         return $user;
     }
 
