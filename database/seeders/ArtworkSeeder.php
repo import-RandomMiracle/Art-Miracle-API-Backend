@@ -18,11 +18,15 @@ class ArtworkSeeder extends Seeder
      */
     public function run()
     {
-        $artist_ids = Artist::select(['id'])->get();
         Artwork::factory(30)->create([
-            'artist_id' => $artist_ids->random()->id,
-            'image_id' => Image::factory()->create()->id,
-        ]);
+            'artist_id' => function () {
+                $artist_ids = Artist::select(['id'])->get();
+                return Artist::inRandomOrder()->first()->id;
+            },
+            'image_id' => function () {
+                return Image::factory()->create()->id;
+            }
+            ,]);
 
         $users = User::get();
         $users->each(function ($user, $key) {
