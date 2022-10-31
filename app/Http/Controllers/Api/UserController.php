@@ -22,7 +22,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with(['artist', 'wallet', 'artworks','followers','followees'])->get();
+        $users = User::with(['artist:id',
+            'wallet:id,balance,point',
+            'artworks:id,artist_id,image_id,art_name,price,description',
+            'followers',
+            'followees'])->get();
         return UserResource::collection($users);
     }
 
