@@ -23,25 +23,32 @@ class ImageController extends Controller
 //        ]);
 
         if ($request->hasFile('avatar')) {
-            $image = $request->file('avatar');
-            $ext = $image->getClientOriginalExtension();
-            $fileName = time() . '.' . $ext;
+            $profile_image = $request->file('avatar');
+            $key = 'avatar';
+            $ext = $profile_image->getClientOriginalExtension();
+            $fileName = hash('md5', time()) . '.' . $ext;
 
-            $path = $image->storeAs('avatar',$fileName,'public');
+            $path = $this->resizeImage($profile_image, $key, $ext, $fileName);
 
-
-            $image = Image::make($image);
-
-            $image->resize(200, 200, function ($constraint) {
-                $constraint->aspectRatio();
-            })->encode($ext);
-
-//            $hash = md5($image->__toString()) . $ext;
-
-            Storage::put('public/avatar_resize/' . 'resize_' . $fileName,$image->__toString());
+            return $path;
         }
 
-        return $fileName;
+        if ($request->hasFile('artwork')) {
+            $artwork_image = $request->file('artwork');
+            $key = 'artwork';
+            $ext = $artwork_image->getClientOriginalExtension();
+            $fileName = hash('md5', time()) . '.' . $ext;
+
+            $artwork_image->storeAs('artwork/real-size/', $fileName, 'public');
+
+            $real_image_path = Storage::url('artwork/real-size/' . $fileName);
+
+            $resize_image_path = $this->resizeImage($artwork_image, $key, $ext, $fileName);
+
+            return [$real_image_path, $resize_image_path];
+        }
+
+        return "can not save image";
     }
 
     public function download()
@@ -59,13 +66,28 @@ class ImageController extends Controller
         $path = $request->file('avatar')->storeAs('image', 'test.jpg', 'public');
     }
 
-    public function getRealImage(Request $request) {
+    public function getRealImage(Request $request)
+    {
         $artwork = Artwork::find($request->id);
         return $artwork->path;
     }
 
-    public function getShowImage(Request $request) {
+    public function getShowImage(Request $request)
+    {
         $artwork = Artwork::find($request->id);
         return $artwork->path;
+    }
+
+    private function resizeImage($image, $key, $ext, $fileName)
+    {
+        $image = Image::make($image);
+
+        $image->resize(500, 500, function ($constraint) {
+            $constraint->aspectRatio();
+        })->encode($ext);
+
+        Storage::put('public/' . $key . '/resize/' . $fileName, $image->__toString());
+
+        return Storage::url($key . '/resize/' . $fileName);
     }
 }
