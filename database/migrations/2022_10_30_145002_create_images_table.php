@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('images', function (Blueprint $table) {
             $table->id();
             $table->string('real_path');
-//            $table->string('resize_path');
+            $table->string('resize_path');
             $table->timestamps();
         });
     }

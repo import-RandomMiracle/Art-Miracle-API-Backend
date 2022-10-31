@@ -18,13 +18,11 @@ class ImageFactory extends Factory
      */
     public function definition()
     {
-        $url = fake()->imageUrl();
-//        $contents = file_get_contents($url);
-        $name = "test";
-        $imageFile = Storage::put('test/' . $name . '.jpg',$url);
-
+        $all_image = Storage::allFiles('public/artwork/real-size');
+        $random_image = explode ("/", $all_image[random_int(0,3)]);
         return [
-//            'real_path' => Storage::disk('public')->putFile('images', $imageFile)
+            'real_path' => Storage::url('artwork/real-size/' . $random_image[3]),
+            'resize_path' => Storage::url('artwork/resize/' . $random_image[3]),
         ];
     }
 }
