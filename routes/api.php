@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ImageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ArtistController;
@@ -39,6 +40,13 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::get('/artworks/page/{pageNumber}', [SelectArtworkController::class, 'index']);
 
+Route::controller(ImageController::class)->group(function (){
+    Route::post('upload','store');
+    Route::get('download/{id}', 'download');
+    Route::get('show/{id}','show');
+    Route::delete('destroy/{id}', 'destroy');
+});
+
 Route::apiResources([
     'artists'       => ArtistController::class,
     'artworks'      => ArtworkController::class,
@@ -51,3 +59,4 @@ Route::apiResources([
     'wallets'       => WalletController::class,
     // 'user/artwork'  => ArtworkUserController::class,
 ]);
+

@@ -47,4 +47,8 @@ class Artwork extends Model
     public function artist(){
         return $this->belongsTo(Artist::class);
     }
+
+    public function image(){
+        return $this->belongsTo(Image::class);
+    }
 }

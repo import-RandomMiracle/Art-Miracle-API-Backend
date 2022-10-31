@@ -1,8 +1,12 @@
 <?php
 
+use App\Models\Artist;
+use App\Models\Image;
+use App\Models\Wallet;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
 
 return new class extends Migration
 {
@@ -14,9 +18,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
+            $url = Storage::url('avatar/default_profile.png');
             $table->id();
-            $table->foreignIdFor(App\Models\Wallet::class);
-            $table->foreignIdFor(App\Models\Artist::class)->nullable();
+            $table->foreignIdFor(Wallet::class);
+            $table->foreignIdFor(Artist::class)->nullable();
+            $table->string('image')->default($url);
             $table->string('user_name')->unique();
             $table->string('display_name');
             $table->string('email')->unique();
