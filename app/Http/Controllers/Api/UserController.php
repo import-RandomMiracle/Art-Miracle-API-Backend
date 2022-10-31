@@ -5,10 +5,16 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Models\Wallet;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,16 +27,6 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -38,7 +34,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $wallet = Wallet::create();
+        $user = User::create([
+            'user_name'         => $request->user_name,
+            'display_name'      => $request->display_name,
+            'email'             => $request->email,
+            'password'          => $request->password,
+            'wallet_id'         => $wallet->id,
+        ]);
+        return $user;
     }
 
     /**
@@ -49,18 +53,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return new UserResource(User::with(['artist', 'wallet', 'artworks'])->find($user->id));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
-    {
-        //
+        // return new UserResource(User::with(['artist', 'wallet', 'artworks'])->find($user->id));
+        return $user;
     }
 
     /**
@@ -72,7 +66,9 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $user->display_name = $request->display_name;
+
+        return $user;
     }
 
     /**
@@ -83,6 +79,6 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        return "method not allowed.";
     }
 }

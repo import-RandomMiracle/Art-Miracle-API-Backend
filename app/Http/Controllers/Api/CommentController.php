@@ -5,9 +5,15 @@ namespace App\Http\Controllers\Api;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CommentResource;
 
 class CommentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +21,8 @@ class CommentController extends Controller
      */
     public function index()
     {
-        return Comment::all();
+        $comment = Comment::get();
+        return CommentResource::collection($comment);
     }
 
     /**
@@ -41,9 +48,9 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Comment $comment)
     {
-        return Comment::find($id);
+        return $comment;
     }
 
     /**
@@ -53,10 +60,9 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Comment $comment)
     {
-        $comment = Comment::find($id);
-        $comment->description = $request->description;
+        $comment->desciption = $request->description;
 
         return $comment;
     }
@@ -67,10 +73,9 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Comment $comment)
     {
-        $comment = Comment::find($id);
-        Comment::destroy($id);
+        $comment->delete();
 
         return $comment;
     }

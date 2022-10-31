@@ -18,19 +18,16 @@ class ArtworkResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'art_name' => $this->art_name,
-            // 'artist' => User::select(['id','artist_id', 'user_name', 'display_name'])->where('artist_id', $this->id)->get(),
-            'artist' => Artist::find($this->artist_id),
-            'price' => $this->price,
-            'path' => $this->path,
-            'comments' => CommentResource::collection($this->whenLoaded('comments')),
-            'tags' => TagResource::collection($this->whenLoaded('tags')),
-            'categories' => CategoryResource::collection($this->whenLoaded('categories')),
-            'likes_count' => $this->whenLoaded('likes', function () {
-                return $this->likes()->count();
-            }),
-            'description' => $this->description,
+            'id'                => $this->id,
+            'art_name'          => $this->art_name,
+            'artist'            => $this->artist_id,
+            'price'             => $this->price,
+            'image_id'          => $this->image_id,
+            'comments'          => $this->comments,
+            'tags'              => $this->tags,
+            'categories'        => $this->categories,
+            'likes'             => Like::where('artwork_id', $this->id)->count(),
+            'description'       => $this->description,
         ];
     }
 }

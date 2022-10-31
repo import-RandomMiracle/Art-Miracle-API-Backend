@@ -18,7 +18,6 @@ class ArtworkFactory extends Factory
     {
         return [
             'art_name' => fake()->realText(random_int(15, 30)),
-            'path' => fake()->filePath(),
             'price' => function () {
                 $price = fake()->optional()->randomFloat(3, 0, 600.00);
                 if ($price != null)

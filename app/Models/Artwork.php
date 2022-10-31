@@ -11,10 +11,12 @@ class Artwork extends Model
 
     protected $fillable = [
         'art_name',
+        'artist_id',
+        'price',
         'path',
         'description',
-        'artist_id',
-        'price'
+        'categories',
+        'tags',
     ];
 
     public function users() {
@@ -44,5 +46,9 @@ class Artwork extends Model
 
     public function artist(){
         return $this->belongsTo(Artist::class);
+    }
+
+    public function image(){
+        return $this->belongsTo(Image::class);
     }
 }

@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class ArtistController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,16 +26,6 @@ class ArtistController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -38,7 +33,13 @@ class ArtistController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $artist = Artist::create([
+            'citizen_id'    => $request->citizen_id,
+            'real_name'     => $request->real_name,
+            'address'       => $request->address
+        ]);
+
+        return $artist;
     }
 
     /**
@@ -49,18 +50,7 @@ class ArtistController extends Controller
      */
     public function show(Artist $artist)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Artist  $artist
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Artist $artist)
-    {
-        //
+        return $artist;
     }
 
     /**
@@ -72,7 +62,7 @@ class ArtistController extends Controller
      */
     public function update(Request $request, Artist $artist)
     {
-        //
+        return "method not allowed.";
     }
 
     /**
@@ -83,6 +73,7 @@ class ArtistController extends Controller
      */
     public function destroy(Artist $artist)
     {
-        //
+        $artist->delete();
+        return $artist;
     }
 }

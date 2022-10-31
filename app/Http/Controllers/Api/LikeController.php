@@ -9,6 +9,10 @@ use App\Http\Resources\LikeResource;
 
 class LikeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,8 +20,7 @@ class LikeController extends Controller
      */
     public function index()
     {
-        $likes = Like::get();
-        return LikeResource::collection($likes);
+        //
     }
 
     /**
