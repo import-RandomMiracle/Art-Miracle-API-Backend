@@ -1,7 +1,7 @@
 # For more information: https://laravel.com/docs/sail
 version: '3'
 services:
-    laravel.back:
+    laravel.test:
         build:
             context: ./vendor/laravel/sail/runtimes/8.1
             dockerfile: Dockerfile
@@ -61,15 +61,15 @@ services:
             retries: 3
             timeout: 5s
 
-    #    localtunnel:
-    #        image: efrecon/localtunnel
-    #        restart: on-failure
-    #        command:
-    #            --local-host laravel.back --port 80 --subdomain ${LOCALTUNNEL_SUBDOMAIN}
-    #        depends_on:
-    #            - laravel.back
-    #        networks:
-    #            - sail
+#    localtunnel:
+#        image: efrecon/localtunnel
+#        restart: on-failure
+#        command:
+#            --local-host laravel.test --port 80 --subdomain ${LOCALTUNNEL_SUBDOMAIN}
+#        depends_on:
+#            - laravel.test
+#        networks:
+#            - sail
     #    meilisearch:
     #        image: 'getmeili/meilisearch:latest'
     #        ports:

@@ -41,10 +41,10 @@ Route::controller(AuthController::class)->group(function () {
 Route::get('/artworks/page/{pageNumber}', [SelectArtworkController::class, 'index']);
 
 Route::controller(ImageController::class)->group(function (){
-    Route::post('upload','store');
-    Route::get('download/{id}', 'download');
-    Route::get('show/{id}','show');
-    Route::delete('destroy/{id}', 'destroy');
+    Route::post('image/upload','store');
+    Route::get('image/download/{id}', 'download');
+    Route::get('image/show/{id}','show');
+    Route::delete('image/destroy/{id}', 'destroy');
 });
 
 Route::apiResources([

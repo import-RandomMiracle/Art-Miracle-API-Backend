@@ -14,9 +14,13 @@ class ArtworkController extends Controller
     {
         $this->middleware('auth:api');
     }
-    
+
     public function index(){
-        $artworks = Artwork::get();
+        $artworks = Artwork::with('likes',
+            'image:id,resize_path',
+            'comments:id,artwork_id,description',
+            'categories:id,category_name',
+            'tags:id,tag_name')->get();
         return ArtworkResource::collection($artworks);
     }
 
