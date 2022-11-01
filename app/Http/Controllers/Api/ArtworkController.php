@@ -17,6 +17,7 @@ class ArtworkController extends Controller
 
     public function index(){
         $artworks = Artwork::with('likes',
+            'image:id,resize_path',
             'comments:id,artwork_id,description',
             'categories:id,category_name',
             'tags:id,tag_name')->get();

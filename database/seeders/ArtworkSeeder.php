@@ -18,7 +18,7 @@ class ArtworkSeeder extends Seeder
      */
     public function run()
     {
-        Artwork::factory(30)->create([
+        Artwork::factory(10)->create([
             'artist_id' => function () {
                 $artist_ids = Artist::select(['id'])->get();
                 return Artist::inRandomOrder()->first()->id;
