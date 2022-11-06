@@ -77,14 +77,15 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request)
     {
         $request->validate([
             'display_name' => 'required|min:4|max:32',
         ]);
+
+        $user = auth('api')->user();
 
         $user->display_name = $request->display_name;
 

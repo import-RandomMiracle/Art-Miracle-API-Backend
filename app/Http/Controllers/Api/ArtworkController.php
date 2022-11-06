@@ -66,7 +66,12 @@ class ArtworkController extends Controller
      */
     public function show(Artwork $artwork)
     {
-        return $artwork;
+        $artwork_temp = Artwork::find($artwork->id)->with('likes',
+            'image:id,resize_path',
+            'comments:id,artwork_id,description',
+            'category',
+            'tags:id,tag_name')->first();
+        return new ArtworkResource($artwork_temp);
     }
 
     /**
