@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Artist;
 use App\Models\Wallet;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 /**
@@ -19,11 +20,15 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $all_image = Storage::allFiles('public/avatar');
+        $random_image = explode ("/", $all_image[random_int(0,51)]);
+
         return [
             'user_name' => fake()->userName(),
             'wallet_id' => Wallet::factory()->create()->id,
             'display_name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
+            'image' => $random_image,
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),

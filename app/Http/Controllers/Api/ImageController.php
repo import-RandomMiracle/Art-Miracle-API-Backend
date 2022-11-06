@@ -25,21 +25,14 @@ class ImageController extends Controller
     public function store(Request $request)
     {
         if ($request->hasFile('avatar')) {
-//            $profile_image = $request->file('avatar');
-//            $key = 'avatar';
-//            $ext = $profile_image->getClientOriginalExtension();
-//            $fileName = hash('md5', time()) . '.' . $ext;
-//
-//            $path = $this->resizeImage($profile_image, $key, $ext, $fileName);
+            $profile_image = $request->file('avatar');
+            $key = 'avatar';
+            $ext = $profile_image->getClientOriginalExtension();
+            $fileName = hash('md5', time()) . '.' . $ext;
 
-            foreach ($request->file('avatar') as $profile_image) {
-                $key = 'avatar';
-                $ext = $profile_image->getClientOriginalExtension();
-                $fileName = hash('md5', time()) . '.' . $ext;
+            $path = $this->resizeImage($profile_image, $key, $ext, $fileName);
 
-                $path = $this->resizeImage($profile_image, $key, $ext, $fileName);
-            }
-//            return $path;
+            return $path;
         }
 
         if ($request->hasFile('artwork')) {

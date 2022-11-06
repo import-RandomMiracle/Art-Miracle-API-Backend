@@ -19,7 +19,7 @@ class ImageFactory extends Factory
     public function definition()
     {
         $all_image = Storage::allFiles('public/artwork/real-size');
-        $random_image = explode ("/", $all_image[random_int(0,3)]);
+        $random_image = explode ("/", $all_image[random_int(0,12)]);
         return [
             'real_path' => Storage::url('artwork/real-size/' . $random_image[3]),
             'resize_path' => Storage::url('artwork/resize/' . $random_image[3]),
