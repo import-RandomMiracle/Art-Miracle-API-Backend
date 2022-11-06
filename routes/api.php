@@ -60,3 +60,6 @@ Route::apiResources([
     // 'user/artwork'  => ArtworkUserController::class,
 ]);
 
+Route::post('/api/buy', [SelectBuyController::class, 'buy']);
+
+
