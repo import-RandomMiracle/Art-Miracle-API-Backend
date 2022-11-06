@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->integer("ban_status")->default(0);
-            $table->timestamp("ban_when");
-            $table->timestamp("unban_when");
+            $table->timestamp("ban_when")->nullable();
+            $table->timestamp("unban_when")->nullable();
         });
     }
 

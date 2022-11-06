@@ -22,10 +22,10 @@ class ArtworkResource extends JsonResource
             'art_name'          => $this->art_name,
             'artist'            => $this->artist_id,
             'price'             => $this->price,
-            'image'             => $this->whenLoaded('image'),
+            'image'             => $this->whenLoaded('image')->resize_path,
             'comments'          => $this->whenLoaded('comments'),
             'tags'              => $this->whenLoaded('tags'),
-            'categories'        => $this->whenLoaded('categories'),
+            'category'          => $this->whenLoaded('category')->category_name,
             'likes'             => $this->whenLoaded('likes')->count(),
             'description'       => $this->description,
         ];

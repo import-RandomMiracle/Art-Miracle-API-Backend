@@ -35,8 +35,8 @@ class Artwork extends Model
         return $this->belongsToMany(Tag::class);
     }
 
-    public function categories(){
-        return $this->belongsToMany(Category::class);
+    public function category(){
+        return $this->belongsTo(Category::class);
     }
 
     public function reports()

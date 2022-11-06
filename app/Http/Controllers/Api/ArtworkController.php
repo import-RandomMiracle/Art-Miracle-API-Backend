@@ -20,7 +20,7 @@ class ArtworkController extends Controller
         $artworks = Artwork::with('likes',
             'image:id,resize_path',
             'comments:id,artwork_id,description',
-            'categories:id,category_name',
+            'category',
             'tags:id,tag_name')->get();
         return ArtworkResource::collection($artworks);
     }
@@ -114,8 +114,28 @@ class ArtworkController extends Controller
         $artworks = Artwork::with('likes',
             'image:id,resize_path',
             'comments:id,artwork_id,description',
-            'categories:id,category_name',
+            'category',
             'tags:id,tag_name')->where('price', '>', 0)->get();
+        return ArtworkResource::collection($artworks);
+    }
+
+    public function artworkImage()
+    {
+        $artworks = Artwork::with('likes',
+            'image:id,resize_path',
+            'comments:id,artwork_id,description',
+            'category',
+            'tags:id,tag_name')->where('category_id', '=', 1)->get();
+        return ArtworkResource::collection($artworks);
+    }
+
+    public function artworkModel()
+    {
+        $artworks = Artwork::with('likes',
+            'image:id,resize_path',
+            'comments:id,artwork_id,description',
+            'category',
+            'tags:id,tag_name')->where('category_id', '=', 2)->get();
         return ArtworkResource::collection($artworks);
     }
 }

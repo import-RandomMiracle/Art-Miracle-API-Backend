@@ -4,10 +4,12 @@ namespace Database\Seeders;
 
 use App\Models\Artist;
 use App\Models\Artwork;
+use App\Models\Category;
 use App\Models\Image;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Nette\Utils\Random;
 
 class ArtworkSeeder extends Seeder
 {
@@ -25,8 +27,8 @@ class ArtworkSeeder extends Seeder
             },
             'image_id' => function () {
                 return Image::factory()->create()->id;
-            }
-            ,]);
+            },
+        ]);
 
         $users = User::get();
         $users->each(function ($user, $key) {

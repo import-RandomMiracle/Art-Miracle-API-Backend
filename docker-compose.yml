@@ -61,7 +61,6 @@ services:
             retries: 3
             timeout: 5s
 
-<<<<<<< Updated upstream
 #    localtunnel:
 #        image: efrecon/localtunnel
 #        restart: on-failure
@@ -71,17 +70,6 @@ services:
 #            - laravel.test
 #        networks:
 #            - sail
-=======
-    # localtunnel:
-    #     image: efrecon/localtunnel
-    #     restart: on-failure
-    #     command:
-    #         --local-host laravel.back --port 80 --subdomain ${LOCALTUNNEL_SUBDOMAIN}
-    #     depends_on:
-    #         - laravel.back
-    #     networks:
-    #         - sail
->>>>>>> Stashed changes
     #    meilisearch:
     #        image: 'getmeili/meilisearch:latest'
     #        ports:

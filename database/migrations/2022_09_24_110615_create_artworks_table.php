@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Artist;
+use App\Models\Category;
 use App\Models\Image;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -19,8 +20,9 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Artist::class);
             $table->foreignIdFor(Image::class);
+            $table->foreignIdFor(Category::class);
             $table->string('art_name');
-            $table->unsignedDouble('price')->nullable();
+            $table->unsignedDouble('price');
             $table->string('description');
             $table->timestamps();
         });

@@ -42,13 +42,19 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::controller(ImageController::class)->group(function (){
     Route::post('image/upload','store');
-    Route::get('image/download/{id}', 'download');
-    Route::get('image/show/{id}','show');
-    Route::delete('image/destroy/{id}', 'destroy');
+    Route::get('image/download/{image}', 'download');
+    Route::get('image/show/{image}','show');
+    Route::delete('image/destroy/{image}', 'destroy');
 });
 
 Route::controller(ArtworkController::class)->group(function (){
     Route::get('artworks/artwork-for-sell','artworkForSell');
+    Route::get('artworks/categories/image','artworkImage');
+    Route::get('artworks/categories/model','artworkModel');
+});
+
+Route::controller(ArtistController::class)->group(function (){
+    Route::get('artists/{artist}/artworks','artworkOfArtist');
 });
 
 Route::apiResources([
@@ -64,6 +70,6 @@ Route::apiResources([
     // 'user/artwork'  => ArtworkUserController::class,
 ]);
 
-Route::post('/api/buy', [SelectBuyController::class, 'buy']);
+//Route::post('/api/buy', [SelectBuyController::class, 'buy']);
 
 

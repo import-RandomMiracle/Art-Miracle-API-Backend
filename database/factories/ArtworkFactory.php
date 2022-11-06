@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -15,15 +16,12 @@ class ArtworkFactory extends Factory
      * @return array<string, mixed>
      */
     public function definition()
-    {
+    {   $price = fake()->optional()->randomFloat(3, 0, 600.00);
         return [
             'art_name' => fake()->realText(random_int(15, 30)),
-            'price' => function () {
-                $price = fake()->optional()->randomFloat(3, 0, 600.00);
-                if ($price != null)
-                    return number_format($price, 2, '.', '');
-                return null;
-            },
-            'description' => fake()->realText(50)];
+            'price' => number_format($price, 2, '.', ''),
+            'description' => fake()->realText(50),
+            'category_id' => Category::inRandomOrder()->first()->id
+            ];
     }
 }
