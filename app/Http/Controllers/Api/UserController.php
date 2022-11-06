@@ -22,6 +22,7 @@ class UserController extends Controller
      */
     public function index()
     {
+
         $users = User::with(['artist:id',
             'wallet:id,balance,point',
             'artworks:id,artist_id,image_id,art_name,price,description',
@@ -38,6 +39,13 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'user_name' => 'required|unique:users,user_name',
+            'display_name' => 'required|min:4|max:32',
+            'email' => 'required|unique:users,email',
+            'password' => 'required|min:8|password',
+        ]);
+
         $wallet = Wallet::create();
         $user = User::create([
             'user_name'         => $request->user_name,
@@ -74,6 +82,10 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $request->validate([
+            'display_name' => 'required|min:4|max:32',
+        ]);
+
         $user->display_name = $request->display_name;
 
         if($request->hasFile('avatar')) {

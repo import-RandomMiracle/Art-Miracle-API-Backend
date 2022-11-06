@@ -33,6 +33,13 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'user_report_id' => 'required|exists:users,id',
+            'reportable_id' => 'required|unique:reports,reportable_id',
+            'reportable_type' => 'required',
+            'description' => 'required|max:1024',
+        ]);
+
         $report = Report::create([
             'user_report_id'    => $request->user_report_id,
             'reportable_id'     => $request->reportable_id,
