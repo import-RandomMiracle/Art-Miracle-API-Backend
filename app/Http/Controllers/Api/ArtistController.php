@@ -33,6 +33,12 @@ class ArtistController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'citizen_id' => 'required|unique:artists,citizen_id',
+            'real_name' => 'required|unique:artists,real_name',
+            'address' => 'required|max:1024',
+        ]);
+
         $artist = Artist::create([
             'citizen_id'    => $request->citizen_id,
             'real_name'     => $request->real_name,

@@ -32,6 +32,13 @@ class ArtworkController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'artist_id' => 'required|integer',
+            'art_name' => 'required|unique:artworks,art_name',
+            'path' => 'required|unique:artworks,path',
+            'price' => 'required|numeric',
+            'description' => 'required|max:1024',
+        ])
         $artwork = Artwork::create([
             'artist_id'     => $request->artist_id,
             'art_name'      => $request->art_name,
@@ -69,6 +76,11 @@ class ArtworkController extends Controller
      */
     public function update(Request $request, Artwork $artwork)
     {
+        $request->validate([
+            'price' => 'required|numeric',
+            'description' => 'required',
+            'categories' => 'required',
+        ])
         $artwork->price         = $request->price;
         $artwork->description   = $request->description;
 
