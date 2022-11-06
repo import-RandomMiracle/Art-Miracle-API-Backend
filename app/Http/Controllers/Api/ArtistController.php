@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ArtistResource;
 use App\Http\Resources\ArtworkResource;
+use App\Http\Resources\UserResource;
 use App\Models\Artist;
 use App\Models\User;
 use App\Models\Artwork;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
 class ArtistController extends Controller
@@ -82,13 +84,17 @@ class ArtistController extends Controller
     }
 
     public function mostFollowee(int $num = 4) {
-        return User::join('artists', 'artist_id', '=', 'artists.id')
+        $users = User::join('artists', 'artist_id', '=', 'artists.id')
         ->join('follows', 'artists.id', '=', 'follows.follower_id')
         ->selectRaw('users.*, artists.*, COUNT(follows.followee_id) AS followers')
         ->groupBy('users.id')
         ->orderBy('followers', 'DESC')
         ->limit($num)
-        ->get()->toJson();
+        ->get();
+
+
+
+        return response(['data' => $users], 200, ['Content-Type' => 'application/json']);
     }
 
     public function artworkOfArtist(Artist $artist)
