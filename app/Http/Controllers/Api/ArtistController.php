@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ArtistResource;
 use App\Http\Resources\ArtworkResource;
 use App\Models\Artist;
+use App\Models\User;
 use App\Models\Artwork;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ArtistController extends Controller
 {
@@ -77,6 +79,15 @@ class ArtistController extends Controller
     {
         $artist->delete();
         return $artist;
+    }
+
+    public function mostFollowee(int $num = 4) {
+        return Artist::join('follows', 'artists.id', '=', 'follows.follower_id')
+        ->selectRaw('artists.*, COUNT(follows.followee_id) AS followers')
+        ->groupBy('artists.id')
+        ->orderBy('followers', 'DESC')
+        ->limit($num)
+        ->get();
     }
 
     public function artworkOfArtist(Artist $artist)

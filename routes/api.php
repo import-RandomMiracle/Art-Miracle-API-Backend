@@ -70,6 +70,5 @@ Route::apiResources([
     // 'user/artwork'  => ArtworkUserController::class,
 ]);
 
-//Route::post('/api/buy', [SelectBuyController::class, 'buy']);
-
-
+Route::post('/api/buy', [SelectBuyController::class, 'buy']);
+Route::get('artist/most/{num?}', [ArtistController::class, 'mostFollowee'])->where('num', '[0-9]+');
