@@ -10,77 +10,19 @@ use App\Models\ArtworkUser;
 
 class BuyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-
-    public function buy(Request $request)
+    public function buyArtwork(Request $request)
     {
         $request->validate([
-            'artwork_id' => 'required',
-            'user_id' => 'required',
-            'price' => 'required',
+            'artwork_id' => 'required|exists:',
         ]);
 
         $artwork = Artwork::find($request->artwork_id);
-        $user = User::find($request->user_id);
+        $user = User::find(auth('api')->user()->id);
 
-        if($user->wallet->balance >= $request->price){
-            $user->wallet->balance -= $request->price;
+        if($user->wallet->balance >= $artwork->price){
+            $user->wallet->balance -= $artwork->price;
             $user->wallet->save();
-            $artwork->user->wallet->balance += $request->price;
+            $artwork->user->wallet->balance += $artwork->price;
             $artwork->user->wallet->save();
             // $artwork->sold = true;
             // $artwork->save();

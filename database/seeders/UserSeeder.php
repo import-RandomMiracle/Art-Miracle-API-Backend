@@ -28,9 +28,6 @@ class UserSeeder extends Seeder
                 return Artist::factory()->create()->id;
             else
                 return null;
-        },
-        'wallet_id' => function () {
-            return Wallet::factory()->create()->id;
         }]);
     }
 }

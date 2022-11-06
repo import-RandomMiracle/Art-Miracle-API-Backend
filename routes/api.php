@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\BuyController;
 use App\Http\Controllers\Api\ImageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ArtistController;
@@ -10,7 +11,6 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\TagController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\CommentController;
-use App\Http\Controllers\Api\SelectArtworkController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Api\WalletController;
 
@@ -68,6 +68,6 @@ Route::apiResources([
     // 'user/artwork'  => ArtworkUserController::class,
 ]);
 
-Route::post('/api/buy', [SelectBuyController::class, 'buy']);
-Route::get('artist/most/{num?}', [ArtistController::class, 'mostFollowee'])->where('num', '[0-9]+');
-Route::get('artwork/most/{num?}', [ArtworkController::class, 'mostLikes'])->where('num', '[0-9]+');
+Route::post('buy/artwork', [BuyController::class, 'buyArtwork']);
+
+
