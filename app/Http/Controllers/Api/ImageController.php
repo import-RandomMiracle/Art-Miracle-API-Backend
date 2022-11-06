@@ -61,7 +61,10 @@ class ImageController extends Controller
     public function show($id)
     {
         $image = \App\Models\Image::find($id);
-        return $image->resize_path;
+        $image_path = [
+            "path" => $image->resize_path
+        ];
+        return json_encode($image_path);
     }
 
     public function download($id)

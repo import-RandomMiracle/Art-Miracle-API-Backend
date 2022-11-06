@@ -22,11 +22,11 @@ class ArtworkResource extends JsonResource
             'art_name'          => $this->art_name,
             'artist'            => $this->artist_id,
             'price'             => $this->price,
-            'image_id'          => $this->image_id,
-            'comments'          => $this->comments,
-            'tags'              => $this->tags,
-            'categories'        => $this->categories,
-            'likes'             => Like::where('artwork_id', $this->id)->count(),
+            'image'             => $this->whenLoaded('image'),
+            'comments'          => $this->whenLoaded('comments'),
+            'tags'              => $this->whenLoaded('tags'),
+            'categories'        => $this->whenLoaded('categories'),
+            'likes'             => $this->whenLoaded('likes')->count(),
             'description'       => $this->description,
         ];
     }

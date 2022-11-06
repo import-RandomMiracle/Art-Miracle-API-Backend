@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\SelectArtworkController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Api\WalletController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,10 +41,10 @@ Route::controller(AuthController::class)->group(function () {
 //Route::get('/artworks/page/{pageNumber}', [SelectArtworkController::class, 'index']);
 
 Route::controller(ImageController::class)->group(function (){
-    Route::post('upload','store');
-    Route::get('download/{id}', 'download');
-    Route::get('show/{id}','show');
-    Route::delete('destroy/{id}', 'destroy');
+    Route::post('image/upload','store');
+    Route::get('image/download/{id}', 'download');
+    Route::get('image/show/{id}','show');
+    Route::delete('image/destroy/{id}', 'destroy');
 });
 
 Route::controller(ArtworkController::class)->group(function (){
@@ -59,6 +60,10 @@ Route::apiResources([
     'reports'       => ReportController::class,
     'likes'         => LikeController::class,
     'comments'      => CommentController::class,
+    'wallets'       => WalletController::class,
     // 'user/artwork'  => ArtworkUserController::class,
 ]);
+
+Route::post('/api/buy', [SelectBuyController::class, 'buy']);
+
 
