@@ -82,12 +82,13 @@ class ArtistController extends Controller
     }
 
     public function mostFollowee(int $num = 4) {
-        return Artist::join('follows', 'artists.id', '=', 'follows.follower_id')
-        ->selectRaw('artists.*, COUNT(follows.followee_id) AS followers')
-        ->groupBy('artists.id')
+        return User::join('artists', 'artist_id', '=', 'artists.id')
+        ->join('follows', 'artists.id', '=', 'follows.follower_id')
+        ->selectRaw('users.*, artists.*, COUNT(follows.followee_id) AS followers')
+        ->groupBy('users.id')
         ->orderBy('followers', 'DESC')
         ->limit($num)
-        ->get();
+        ->get()->toJson();
     }
 
     public function artworkOfArtist(Artist $artist)
