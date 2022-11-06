@@ -92,8 +92,6 @@ class ArtistController extends Controller
         ->limit($num)
         ->get();
 
-
-
         return response(['data' => $users], 200, ['Content-Type' => 'application/json']);
     }
 
