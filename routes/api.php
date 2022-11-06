@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\api\BuyController;
 use App\Http\Controllers\Api\ImageController;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ArtistController;
 use App\Http\Controllers\Api\ArtworkController;
@@ -53,6 +54,10 @@ Route::controller(ArtworkController::class)->group(function (){
 
 Route::controller(ArtistController::class)->group(function (){
     Route::get('artists/{artist}/artworks','artworkOfArtist');
+});
+
+Route::get('check/roll',function () {
+   return new UserResource(auth('api')->user());
 });
 
 Route::apiResources([

@@ -24,8 +24,8 @@ class UserResource extends JsonResource
             'has_artworks'      => $this->whenLoaded('artworks'),
             'user_name'         => $this->user_name,
             'display_name'      => $this->display_name,
-            'follower_count'    => $this->whenLoaded('followers')->count(),
-            'following_count'   => $this->whenLoaded('followees')->count(),
+            'follower_count'    => $this->whenLoaded('followers', $this->followers->count()),
+            'following_count'   => $this->whenLoaded('followees', $this->followees->count()),
             'email'             => $this->email,
             'role'              => $this->role
         ];
