@@ -113,4 +113,14 @@ class UserController extends Controller
     {
         return "method not allowed.";
     }
+
+    public function getCurrentUser(){
+        $user_id = auth('api')->user()->id;
+        $user = User::with(['artist:id',
+            'wallet:id,balance,point',
+            'artworks:id,artist_id,image_id,art_name,price,description',
+            'followers',
+            'followees'])->where('id','=',$user_id)->first();
+        return new UserResource($user);
+    }
 }
