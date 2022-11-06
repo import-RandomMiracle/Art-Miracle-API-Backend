@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\BuyController;
+use App\Http\Controllers\Api\FeedbackController;
 use App\Http\Controllers\Api\ImageController;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Route;
@@ -72,6 +73,7 @@ Route::apiResources([
     'likes'         => LikeController::class,
     'comments'      => CommentController::class,
     'wallets'       => WalletController::class,
+    'feedbacks'     => FeedbackController::class
     // 'user/artwork'  => ArtworkUserController::class,
 ]);
 

@@ -22,9 +22,9 @@ class ArtworkResource extends JsonResource
             'art_name'          => $this->art_name,
             'artist'            => $this->artist_id,
             'user'              => [
-                'display_name'  => $this->user->display_name,
-                'user_name'     => $this->user->user_name,
-                'profile'       => $this->user->profile
+                'display_name'  => $this->artist->user->display_name,
+                'user_name'     => $this->artist->user->user_name,
+                'profile'       => $this->artist->user->profile
             ],
             'price'             => $this->price,
             'point'             => $this->point,
