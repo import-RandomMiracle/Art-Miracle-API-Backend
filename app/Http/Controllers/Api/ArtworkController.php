@@ -123,32 +123,59 @@ class ArtworkController extends Controller
 
     public function artworkForSell()
     {
-        $artworks = Artwork::with('likes',
-            'image:id,resize_path',
-            'comments:id,artwork_id,description',
-            'category',
-            'tags:id,tag_name')->where('price', '>', 0)->get();
+        $artist_id = auth('api')->user()->artist_id;
+        $artworks = $this->getArtworkByID($artist_id)->
+        where('price', '>', 0)->
+        get();
         return ArtworkResource::collection($artworks);
     }
 
     public function artworkImage()
     {
-        $artworks = Artwork::with('likes',
+        $artworks = auth('api')->user()->artworks()->
+        with('likes',
             'image:id,resize_path',
             'comments:id,artwork_id,description',
             'category',
-            'tags:id,tag_name')->where('category_id', '=', 1)->get();
+            'tags:id,tag_name')->
+        where('category_id', '=', 1)->get();
         return ArtworkResource::collection($artworks);
     }
 
     public function artworkModel()
     {
+        $artworks = auth('api')->user()->artworks()->
+        with('likes',
+            'image:id,resize_path',
+            'comments:id,artwork_id,description',
+            'category',
+            'tags:id,tag_name')->
+        where('category_id', '=', 2)->get();
+        return ArtworkResource::collection($artworks);
+    }
+
+    public function mostLikes(int $num = 4)
+    {
+        $artworks = Artwork::join('images', 'artworks.image_id', '=', 'images.id')
+            ->join('likes', 'artworks.id', '=', 'likes.artwork_id')
+            ->selectRaw('artworks.*, images.resize_path, COUNT(likes.user_id) AS likeCount')
+            ->groupBy('artworks.id')
+            ->orderBy('likeCount', 'DESC')
+            ->limit($num)
+            ->get();
+
+        return response(['data' => $artworks], 200, ['Content-Type' => 'application/json']);
+    }
+
+    private function getArtworkByID($id)
+    {
         $artworks = Artwork::with('likes',
             'image:id,resize_path',
             'comments:id,artwork_id,description',
             'category',
-            'tags:id,tag_name')->where('category_id', '=', 2)->get();
-        return ArtworkResource::collection($artworks);
+            'tags:id,tag_name')
+            ->where('artist_id', "=", $id);
+        return $artworks;
     }
 
     public function mostLikes(int $num = 4) {

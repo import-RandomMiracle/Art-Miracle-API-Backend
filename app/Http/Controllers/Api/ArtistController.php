@@ -106,7 +106,7 @@ class ArtistController extends Controller
         $artworks = Artwork::with('likes',
             'image:id,resize_path',
             'comments:id,artwork_id,description',
-            'categories:id,category_name',
+            'category',
             'tags:id,tag_name')->where('artist_id',"=",$artist->id)->get();
         return ArtworkResource::collection($artworks);
     }
