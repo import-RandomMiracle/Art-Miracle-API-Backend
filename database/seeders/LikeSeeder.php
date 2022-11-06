@@ -17,7 +17,7 @@ class LikeSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 0;$i <= 60; $i++){
+        for ($i = 0;$i <= 10000; $i++){
             $like = New Like();
             $like->artwork_id = Artwork::inRandomOrder()->first()->id;
             $like->user_id = User::inRandomOrder()->first()->id;

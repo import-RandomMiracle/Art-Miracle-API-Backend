@@ -65,8 +65,12 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        // return new UserResource(User::with(['artist', 'wallet', 'artworks'])->find($user->id));
-        return $user;
+        $userTemp = User::with(['artist:id',
+            'wallet:id,balance,point',
+            'artworks:id,artist_id,image_id,art_name,price,description',
+            'followers',
+            'followees'])->where('id','=',$user->id)->first();
+        return new UserResource($userTemp);
     }
 
     /**

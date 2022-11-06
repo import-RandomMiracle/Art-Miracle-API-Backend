@@ -15,11 +15,12 @@ class ArtworkController extends Controller
         $this->middleware('auth:api');
     }
 
-    public function index(){
+    public function index()
+    {
         $artworks = Artwork::with('likes',
             'image:id,resize_path',
             'comments:id,artwork_id,description',
-            'categories:id,category_name',
+            'category',
             'tags:id,tag_name')->get();
         return ArtworkResource::collection($artworks);
     }
@@ -27,7 +28,7 @@ class ArtworkController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -40,11 +41,11 @@ class ArtworkController extends Controller
             'description' => 'required|max:1024',
         ])
         $artwork = Artwork::create([
-            'artist_id'     => $request->artist_id,
-            'art_name'      => $request->art_name,
-            'path'          => $request->path,
-            'price'         => $request->price,
-            'description'   => $request->description,
+            'artist_id' => $request->artist_id,
+            'art_name' => $request->art_name,
+            'path' => $request->path,
+            'price' => $request->price,
+            'description' => $request->description,
         ]);
 
         $artwork->categories()->attach($request->categories);
@@ -59,7 +60,7 @@ class ArtworkController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Artwork  $artwork
+     * @param \App\Models\Artwork $artwork
      * @return \Illuminate\Http\Response
      */
     public function show(Artwork $artwork)
@@ -70,8 +71,8 @@ class ArtworkController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Artwork  $artwork
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Artwork $artwork
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Artwork $artwork)
@@ -101,7 +102,7 @@ class ArtworkController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Artwork  $artwork
+     * @param \App\Models\Artwork $artwork
      * @return \Illuminate\Http\Response
      */
     public function destroy(Artwork $artwork)
@@ -109,5 +110,56 @@ class ArtworkController extends Controller
         $artwork->delete();
 
         return $artwork;
+    }
+
+//    public function index(){
+//        $artworks = Artwork::with('likes',
+//            'image:id,resize_path',
+//            'comments:id,artwork_id,description',
+//            'categories:id,category_name',
+//            'tags:id,tag_name')->get();
+//        return ArtworkResource::collection($artworks);
+//    }
+
+    public function artworkForSell()
+    {
+        $artworks = Artwork::with('likes',
+            'image:id,resize_path',
+            'comments:id,artwork_id,description',
+            'category',
+            'tags:id,tag_name')->where('price', '>', 0)->get();
+        return ArtworkResource::collection($artworks);
+    }
+
+    public function artworkImage()
+    {
+        $artworks = Artwork::with('likes',
+            'image:id,resize_path',
+            'comments:id,artwork_id,description',
+            'category',
+            'tags:id,tag_name')->where('category_id', '=', 1)->get();
+        return ArtworkResource::collection($artworks);
+    }
+
+    public function artworkModel()
+    {
+        $artworks = Artwork::with('likes',
+            'image:id,resize_path',
+            'comments:id,artwork_id,description',
+            'category',
+            'tags:id,tag_name')->where('category_id', '=', 2)->get();
+        return ArtworkResource::collection($artworks);
+    }
+
+    public function mostLikes(int $num = 4) {
+        $artworks = Artwork::join('images', 'artworks.image_id', '=', 'images.id')
+        ->join('likes', 'artworks.id', '=', 'likes.artwork_id')
+        ->selectRaw('artworks.*, images.resize_path, COUNT(likes.user_id) AS likeCount')
+        ->groupBy('artworks.id')
+        ->orderBy('likeCount', 'DESC')
+        ->limit($num)
+        ->get();
+
+        return response(['data' => $artworks], 200, ['Content-Type' => 'application/json']);
     }
 }

@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Artwork;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 use Intervention\Image\Facades\Image;
 
 class ImageController extends Controller
@@ -17,12 +15,14 @@ class ImageController extends Controller
         $this->middleware('auth:api');
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
-//        $request->validate([
-//            'file' => 'required|mimes:png,jpg,jpeg,csv,txt,xlx,xls,pdf|max:2048'
-//        ]);
-
         if ($request->hasFile('avatar')) {
             $profile_image = $request->file('avatar');
             $key = 'avatar';
@@ -55,36 +55,40 @@ class ImageController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param \App\Models\Image $image
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(\App\Models\Image $image)
     {
-        $image = \App\Models\Image::find($id);
         $image_path = [
-            "path" => $image->resize_path
+            "path" => $image->resize_path,
         ];
         return json_encode($image_path);
     }
 
-    public function download($id)
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param \App\Models\Image $image
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(\App\Models\Image $image)
     {
-        $image = \App\Models\Image::find($id);
-        $image_path = explode ('/',$image->real_path,3);
-        return Storage::download('public/' . $image_path[2]);
-    }
-
-    public function destroy($id)
-    {
-        $image = \App\Models\Image::find($id);
-
         $this->deleteImage($image->real_path);
         $this->deleteImage($image->resize_path);
         return $image->delete();
     }
 
-    public function deleteImage($path){
-        $image_path = explode ('/',$path,3);
+    public function download($id)
+    {
+        $image = \App\Models\Image::find($id);
+        $image_path = explode('/', $image->real_path, 3);
+        return Storage::download('public/' . $image_path[2]);
+    }
+
+    public function deleteImage($path)
+    {
+        $image_path = explode('/', $path, 3);
         return Storage::delete('public/' . $image_path[2]);
 
     }
@@ -93,11 +97,9 @@ class ImageController extends Controller
     {
         $image = Image::make($image);
 
-        $image->resize(500, 500, function ($constraint) {
-            $constraint->aspectRatio();
-        })->encode($ext);
+        $image->resize(500, 500)->encode($ext);
 
-        if($key == 'artwork') {
+        if ($key == 'artwork') {
             Storage::put('public/' . $key . '/resize/' . $fileName, $image->__toString());
             return Storage::url($key . '/resize/' . $fileName);
         }
@@ -105,4 +107,6 @@ class ImageController extends Controller
         Storage::put('public/' . $key . '/' . $fileName, $image->__toString());
         return Storage::url($key . '/' . $fileName);
     }
+
+
 }

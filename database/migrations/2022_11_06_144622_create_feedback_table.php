@@ -1,8 +1,6 @@
 <?php
 
-use App\Models\Artist;
-use App\Models\Category;
-use App\Models\Image;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,14 +14,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('artworks', function (Blueprint $table) {
+        Schema::create('feedback', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Artist::class);
-            $table->foreignIdFor(Image::class);
-            $table->foreignIdFor(Category::class);
-            $table->string('art_name');
-            $table->unsignedDouble('price');
-            $table->string('description');
+            $table->foreignIdFor(User::class);
+            $table->string("description");
             $table->timestamps();
         });
     }
@@ -35,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('artworks');
+        Schema::dropIfExists('feedback');
     }
 };

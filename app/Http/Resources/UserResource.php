@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Artwork;
 use App\Models\Wallet;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -17,6 +18,7 @@ class UserResource extends JsonResource
     {
         return [
             'id'                => $this->id,
+            'profile'           => $this->image,
             'wallet'            => $this->whenLoaded('wallet'),
             'artist'            => $this->whenLoaded('artist'),
             'has_artworks'      => $this->whenLoaded('artworks'),

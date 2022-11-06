@@ -22,15 +22,12 @@ class UserSeeder extends Seeder
             'role' => 'ADMIN',
             'email' => 'admin@example.com'
         ]);
-        User::factory(10)->create([
+        User::factory(100)->create([
             'artist_id' => function () {
             if(random_int(0,1) == 1)
                 return Artist::factory()->create()->id;
             else
                 return null;
-        },
-        'wallet_id' => function () {
-            return Wallet::factory()->create()->id;
         }]);
     }
 }

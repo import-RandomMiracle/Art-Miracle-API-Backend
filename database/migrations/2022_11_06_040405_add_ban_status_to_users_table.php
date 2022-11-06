@@ -13,11 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('artwork_category', function (Blueprint $table) {
-            $table->id();
-            $table->foreignIdFor(App\Models\Artwork::class);
-            $table->foreignIdFor(App\Models\Category::class);
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->integer("ban_status")->default(0);
+            $table->timestamp("ban_when")->nullable();
+            $table->timestamp("unban_when")->nullable();
         });
     }
 
@@ -28,6 +27,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('artwork_category');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };
