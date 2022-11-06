@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Artwork;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
@@ -79,9 +80,10 @@ class ImageController extends Controller
         return $image->delete();
     }
 
-    public function download($id)
+    public function download(Request $request)
     {
-        $image = \App\Models\Image::find($id);
+        $artwork = Artwork::find($request->artwork_id);
+        $image = \App\Models\Image::find($artwork->image_id);
         $image_path = explode('/', $image->real_path, 3);
         return Storage::download('public/' . $image_path[2]);
     }
@@ -107,6 +109,4 @@ class ImageController extends Controller
         Storage::put('public/' . $key . '/' . $fileName, $image->__toString());
         return Storage::url($key . '/' . $fileName);
     }
-
-
 }

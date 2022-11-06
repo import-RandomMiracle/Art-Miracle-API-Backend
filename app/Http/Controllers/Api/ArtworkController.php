@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ArtworkResource;
 use App\Models\Artwork;
+use http\Client\Curl\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -82,8 +83,8 @@ class ArtworkController extends Controller
             'description' => 'required',
             'categories' => 'required',
         ]);
-        $artwork->price         = $request->price;
-        $artwork->description   = $request->description;
+        $artwork->price = $request->price;
+        $artwork->description = $request->description;
 
         $artwork->categories()->detach($artwork->categories);
         $artwork->categories()->attach($request->categories);
@@ -165,6 +166,22 @@ class ArtworkController extends Controller
             ->get();
 
         return response(['data' => $artworks], 200, ['Content-Type' => 'application/json']);
+    }
+
+    public function getMyArtwork()
+    {
+        return $this->getArtworkByUserID(auth('api')->user()->id);
+    }
+
+    public function getArtworkByUserID($id)
+    {
+        $user = \App\Models\User::find($id);
+        $artworks = $user->artworks()->with('likes',
+            'image:id,resize_path',
+            'comments:id,artwork_id,description',
+            'category',
+            'tags:id,tag_name')->get();
+        return ArtworkResource::collection($artworks);
     }
 
     private function getArtworkByID($id)

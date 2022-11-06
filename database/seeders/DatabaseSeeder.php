@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Models\Artwork;
 use App\Models\Category;
 use App\Models\Comment;
+use App\Models\Feedback;
 use App\Models\Follow;
 use App\Models\Report;
 use App\Models\User;
@@ -31,6 +32,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TagSeeder::class);
         $this->call(ReportSeeder::class);
         $this->call(FollowSeeder::class);
+        $this->call(FeedbackSeeder::class);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

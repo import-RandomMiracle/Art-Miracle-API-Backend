@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Feedback;
 use Illuminate\Http\Request;
 
 class FeedbackController extends Controller
@@ -27,12 +28,11 @@ class FeedbackController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'user_id' => 'required',
             'description' => 'required',
         ]);
 
         $feedback = Feedback::create([
-            'user_id' => $request->user_id,
+            'user_id' => auth('api')->user()->id,
             'description' => $request->description,
         ]);
 

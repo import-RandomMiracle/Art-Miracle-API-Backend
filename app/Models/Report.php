@@ -9,6 +9,8 @@ class Report extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['user_report_id', 'reportable_id', 'reportable_type', 'description'];
+
     public function reportable()
     {
         return $this->morphTo();

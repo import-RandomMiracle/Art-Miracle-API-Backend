@@ -13,7 +13,7 @@ class ReportController extends Controller
     {
         $this->middleware('auth:api');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -34,14 +34,13 @@ class ReportController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'user_report_id' => 'required|exists:users,id',
-            'reportable_id' => 'required|unique:reports,reportable_id',
+            'reportable_id' => 'required',
             'reportable_type' => 'required',
             'description' => 'required|max:1024',
         ]);
 
         $report = Report::create([
-            'user_report_id'    => $request->user_report_id,
+            'user_report_id'    => auth('api')->user()->id,
             'reportable_id'     => $request->reportable_id,
             'reportable_type'   => $request->reportable_type,
             'description'       => $request->description,
@@ -83,5 +82,9 @@ class ReportController extends Controller
     {
         $report->delete();
         return $report;
+    }
+
+    public function getArtworkReport(){
+
     }
 }
