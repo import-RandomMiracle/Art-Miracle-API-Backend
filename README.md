@@ -1,64 +1,59 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Art Miracle (API Backend) by Import Random Miracle
+    Final Project 1/2022
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Art Miracle** เป็นเว็บไซต์เกี่ยวกับการซื้อ-ขาย แบ่งปันรูปภาพ ไม่ว่าจะเป็นภาพถ่าย ภาพวาด หรือรูปภาพดิจิทัลก็ตาม
 
-## About Laravel
+## สมาชิกภายในกลุ่ม
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+| รหัสนิสิต | ชื่อ - นามสกุล | เรียน SE | เรียน WT | |
+| --- | --- | --- | --- | --- |
+| 6310403974 | ณัฐดนัย ตันวาณิชกุล | / | / | (หัวหน้ากลุ่ม) |
+| 6310400959 | ชัชวาล เมืองใหม่ |  | / | |
+| 6310401033 | ทินรัตน์ จีระกุลกิจ |  | / | |
+| 6310401041 | ธิติ ทวีสิน | / |  | |
+| 6310401084 | พีรพัฒน์ ตันตระกูล | / | / | |
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+หมายเหตุ :
+* SE ย่อมาจากชื่อวิชา Introduction to Software Engineering
+* WT ย่อมาจากชื่อวิชา Web Technology and Web Service
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## การติดตั้งใช้งาน
+> การใช้งานจำเป็นต้องติดตั้งร่วมกันทั้ง Frontend และ API Backend เพื่อให้เว็บไซต์สามารถใช้งานได้อย่างเต็มประสิทธิภาพ สำหรับ repository นี้ เป็นเว็บไซต์สำหรับ API backend เท่านั้น โปรดไปยัง[ลิงก์นี้](https://github.com/import-RandomMiracle/Art-Miracle/) เพื่อดาวน์โหลด frontend มาใช้งานร่วมกันด้วย
 
-## Learning Laravel
+### การใช้งานเว็บไซต์ (แบบ local)
+1. ใช้คำสั่งต่อไปนี้เพื่อติดตั้ง laravel framework ลงใน repository
+```sh
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v $(pwd):/var/www/html \
+    -w /var/www/html \
+    laravelsail/php81-composer:latest \
+    composer install --ignore-platform-reqs
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+2. ใช้คำสั่งต่อไปนี้เพื่อเริ่มทำงานโปรแกรม
+```
+./vendor/bin/sail up
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## การทดสอบด้วย PHP Unit Test/Feature Test
+- มีการทดสอบ http request กับ API controllers บน API Backend ดังนี้
+  -  ArtistController
+  -  ArtworkController
+  -  CategoryController
+  -  CommentController
+  -  LikeController
+  -  ReportController
+  -  TagController
+  -  UserController
 
-## Laravel Sponsors
+## การดำเนินงาน
+ตรวจสอบการดำเนินงานของกลุ่มได้ที่ [ลิงก์ Jira](https://import-random-miracle.atlassian.net/jira/software/projects/AM/boards/1/roadmap)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## เอกสารที่เกี่ยวข้อง
+- User Persona
+- User Journey
+- Burn Down Chart
+- UI Flow
+> เอกสารทั้งหมดนี้อยู๋ใน directory documents
