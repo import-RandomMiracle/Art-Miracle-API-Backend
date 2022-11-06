@@ -21,6 +21,7 @@ class BuyController extends Controller
 
         if ($user->wallet->balance >= $artwork->price) {
             $user->wallet->balance -= $artwork->price;
+            $user->wallet->point   += $artwork->point;
             $user->wallet->save();
             $artwork->user->wallet->balance += $artwork->price;
             $artwork->user->wallet->save();
@@ -56,6 +57,7 @@ class BuyController extends Controller
         $gift_to_user = User::find($request->user_id);
         if ($user->wallet->balance >= $artwork->price) {
             $user->wallet->balance -= $artwork->price;
+            $user->wallet->point   += $artwork->point;
             $user->wallet->save();
             $artwork->user->wallet->balance += $artwork->price;
             $artwork->user->wallet->save();

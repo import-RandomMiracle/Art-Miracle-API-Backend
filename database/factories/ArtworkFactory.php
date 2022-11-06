@@ -16,10 +16,13 @@ class ArtworkFactory extends Factory
      * @return array<string, mixed>
      */
     public function definition()
-    {   $price = fake()->optional()->randomFloat(3, 0, 600.00);
+    {
+        $price = random_int(0,600);
+        $point = $price * 10;
         return [
             'art_name' => fake()->realText(random_int(15, 30)),
-            'price' => number_format($price, 2, '.', ''),
+            'price' => $price,
+            'point' => $point,
             'description' => fake()->realText(50),
             'category_id' => Category::inRandomOrder()->first()->id
             ];

@@ -22,7 +22,8 @@ return new class extends Migration
             $table->foreignIdFor(Image::class);
             $table->foreignIdFor(Category::class);
             $table->string('art_name');
-            $table->unsignedDouble('price');
+            $table->integer('price');
+            $table->integer('point');
             $table->string('description');
             $table->timestamps();
         });
