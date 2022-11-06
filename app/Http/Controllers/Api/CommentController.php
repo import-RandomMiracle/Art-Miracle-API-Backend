@@ -33,6 +33,12 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'artist_id' => 'required|exists:artists,id',
+            'user_id' => 'required|exists:users,id',
+            'description' => 'required|max:1024',
+        ]);
+
         $comment = Comment::create([
             'artwork_id'    => $request->artwork_id,
             'user_id'       => $request->user_id,
@@ -62,6 +68,9 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
+        $request->validate([
+            'description' => 'required|max:1024',
+        ]);
         $comment->desciption = $request->description;
 
         return $comment;

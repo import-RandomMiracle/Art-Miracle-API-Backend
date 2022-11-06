@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Artwork;
 use App\Models\User;
-use App\Models\ArtworkUser;
+
 
 class BuyController extends Controller
 {
@@ -69,9 +69,9 @@ class BuyController extends Controller
     public function buy(Request $request)
     {
         $request->validate([
-            'artwork_id' => 'required',
-            'user_id' => 'required',
-            'price' => 'required',
+            'artwork_id' => 'required|exists:artworks,id',
+            'user_id' => 'required|exists:users,id',
+            'price' => 'required|numeric',
         ]);
 
         $artwork = Artwork::find($request->artwork_id);
