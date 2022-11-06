@@ -37,13 +37,17 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('refresh', 'refresh');
 });
 
-Route::get('/artworks/page/{pageNumber}', [SelectArtworkController::class, 'index']);
+//Route::get('/artworks/page/{pageNumber}', [SelectArtworkController::class, 'index']);
 
 Route::controller(ImageController::class)->group(function (){
     Route::post('upload','store');
     Route::get('download/{id}', 'download');
     Route::get('show/{id}','show');
     Route::delete('destroy/{id}', 'destroy');
+});
+
+Route::controller(ArtworkController::class)->group(function (){
+    Route::get('artworks/artwork-for-sell','artworkForSell');
 });
 
 Route::apiResources([
