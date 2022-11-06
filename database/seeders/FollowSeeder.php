@@ -18,7 +18,7 @@ class FollowSeeder extends Seeder
     {
         $user_count = User::count();
 
-        for($i=0; $i < 20; $i++){
+        for($i=0; $i < 1000; $i++){
             $follow = new Follow();
             $follow->followee_id = fake()->numberBetween(1,$user_count);
             $follow->follower_id = fake()->numberBetween(1,$user_count);

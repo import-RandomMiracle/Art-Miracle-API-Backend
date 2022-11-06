@@ -1,11 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\ImageController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ArtistController;
 use App\Http\Controllers\Api\ArtworkController;
-use App\Http\Controllers\Api\ArtworkUserController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\UserController;
@@ -38,7 +36,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('refresh', 'refresh');
 });
 
-//Route::get('/artworks/page/{pageNumber}', [SelectArtworkController::class, 'index']);
+// Route::get('/artworks/page/{pageNumber}', [SelectArtworkController::class, 'index']);
 
 Route::controller(ImageController::class)->group(function (){
     Route::post('image/upload','store');

@@ -61,15 +61,6 @@ services:
             retries: 3
             timeout: 5s
 
-#    localtunnel:
-#        image: efrecon/localtunnel
-#        restart: on-failure
-#        command:
-#            --local-host laravel.test --port 80 --subdomain ${LOCALTUNNEL_SUBDOMAIN}
-#        depends_on:
-#            - laravel.test
-#        networks:
-#            - sail
     #    meilisearch:
     #        image: 'getmeili/meilisearch:latest'
     #        ports:
@@ -93,6 +84,15 @@ services:
         image: 'selenium/standalone-chrome'
         volumes:
             - '/dev/shm:/dev/shm'
+        networks:
+            - sail
+    localtunnel:
+        image: efrecon/localtunnel
+        restart: on-failure
+        command:
+            --local-host laravel.test --port 80 --subdomain ${LOCALTUNNEL_SUBDOMAIN}
+        depends_on:
+            - laravel.test
         networks:
             - sail
 networks:
