@@ -19,9 +19,12 @@ class ReportResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'            => $this->id,
-            'reporter_id'   => $this->user_report_id,
-            'report_type'   => $this->reportable_type,
+            'id' => $this->id,
+            'reporter_id' => $this->user_report_id,
+            'report_type' => $this->reportable_type,
+            'reportable_id' => $this->when($this->whenLoaded('reportable'), function () {
+                return $this->reportable_id;
+            }),
             'reportable_type' => $this->when($this->whenLoaded('reportable'), function () {
                 if ($this->reportable_type == 'artwork') {
                     $artwork_id = $this->reportable->id;
@@ -47,7 +50,8 @@ class ReportResource extends JsonResource
 
                 return null;
             }),
-            'description'   => $this->description,
+            'description' => $this->description,
         ];
     }
 }
+
