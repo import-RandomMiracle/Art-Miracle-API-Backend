@@ -13,7 +13,7 @@ class CommentController extends Controller
     {
         $this->middleware('auth:api');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -35,13 +35,12 @@ class CommentController extends Controller
     {
         $request->validate([
             'artist_id' => 'required|exists:artists,id',
-            'user_id' => 'required|exists:users,id',
             'description' => 'required|max:1024',
         ]);
 
         $comment = Comment::create([
             'artwork_id'    => $request->artwork_id,
-            'user_id'       => $request->user_id,
+            'user_id'       => auth('api')->user()->id,
             'description'   => $request->description,
         ]);
 

@@ -39,7 +39,7 @@ class ArtworkController extends Controller
             'path' => 'required|unique:artworks,path',
             'price' => 'required|numeric',
             'description' => 'required|max:1024',
-        ])
+        ]);
         $artwork = Artwork::create([
             'artist_id' => $request->artist_id,
             'art_name' => $request->art_name,
@@ -81,7 +81,7 @@ class ArtworkController extends Controller
             'price' => 'required|numeric',
             'description' => 'required',
             'categories' => 'required',
-        ])
+        ]);
         $artwork->price         = $request->price;
         $artwork->description   = $request->description;
 
@@ -176,17 +176,5 @@ class ArtworkController extends Controller
             'tags:id,tag_name')
             ->where('artist_id', "=", $id);
         return $artworks;
-    }
-
-    public function mostLikes(int $num = 4) {
-        $artworks = Artwork::join('images', 'artworks.image_id', '=', 'images.id')
-        ->join('likes', 'artworks.id', '=', 'likes.artwork_id')
-        ->selectRaw('artworks.*, images.resize_path, COUNT(likes.user_id) AS likeCount')
-        ->groupBy('artworks.id')
-        ->orderBy('likeCount', 'DESC')
-        ->limit($num)
-        ->get();
-
-        return response(['data' => $artworks], 200, ['Content-Type' => 'application/json']);
     }
 }
