@@ -138,4 +138,13 @@ class ArtworkController extends Controller
             'tags:id,tag_name')->where('category_id', '=', 2)->get();
         return ArtworkResource::collection($artworks);
     }
+
+    public function mostLikes(int $num = 4) {
+        return Artwork::join('likes', 'artworks.id', '=', 'likes.artwork_id')
+        ->selectRaw('artworks.*, COUNT(likes.user_id) AS likeCount')
+        ->groupBy('artworks.id')
+        ->orderBy('likeCount', 'DESC')
+        ->limit($num)
+        ->get();
+    }
 }
