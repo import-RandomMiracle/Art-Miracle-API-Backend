@@ -1,18 +1,16 @@
 <?php
 
+use App\Http\Controllers\api\BuyController;
 use App\Http\Controllers\Api\ImageController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ArtistController;
 use App\Http\Controllers\Api\ArtworkController;
-use App\Http\Controllers\Api\ArtworkUserController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\TagController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\CommentController;
-use App\Http\Controllers\Api\SelectArtworkController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Api\WalletController;
 
@@ -57,6 +55,11 @@ Route::controller(ArtistController::class)->group(function (){
     Route::get('artists/{artist}/artworks','artworkOfArtist');
 });
 
+Route::get('test',function (){
+    return $user_id = auth('api')->user()->id;
+
+});
+
 Route::apiResources([
     'artists'       => ArtistController::class,
     'artworks'      => ArtworkController::class,
@@ -70,6 +73,6 @@ Route::apiResources([
     // 'user/artwork'  => ArtworkUserController::class,
 ]);
 
-//Route::post('/api/buy', [SelectBuyController::class, 'buy']);
+Route::post('buy/artwork', [BuyController::class, 'buyArtwork']);
 
 
