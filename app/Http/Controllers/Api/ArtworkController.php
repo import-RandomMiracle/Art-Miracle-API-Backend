@@ -140,11 +140,12 @@ class ArtworkController extends Controller
     }
 
     public function mostLikes(int $num = 4) {
-        return Artwork::join('likes', 'artworks.id', '=', 'likes.artwork_id')
-        ->selectRaw('artworks.*, COUNT(likes.user_id) AS likeCount')
+        return Artwork::join('images', 'artworks.image_id', '=', 'images.id')
+        ->join('likes', 'artworks.id', '=', 'likes.artwork_id')
+        ->selectRaw('artworks.*, images.resize_path, COUNT(likes.user_id) AS likeCount')
         ->groupBy('artworks.id')
         ->orderBy('likeCount', 'DESC')
         ->limit($num)
-        ->get();
+        ->get()->toJson();
     }
 }
