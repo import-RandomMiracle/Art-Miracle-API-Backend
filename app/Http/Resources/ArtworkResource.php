@@ -24,7 +24,7 @@ class ArtworkResource extends JsonResource
             'user'              => [
                 'display_name'  => $this->artist->user->display_name,
                 'user_name'     => $this->artist->user->user_name,
-                'profile'       => $this->artist->user->profile
+                'profile'       => $this->artist->user->image
             ],
             'price'             => $this->price,
             'point'             => $this->point,

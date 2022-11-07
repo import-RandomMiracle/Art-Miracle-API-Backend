@@ -12,27 +12,21 @@ class BuyController extends Controller
 {
     public function buyArtwork(Request $request)
     {
-        $request->validate([
-            'artwork_id' => 'required|exists:artworks,id'
-        ]);
-
+//        $request->validate([
+//            'artwork_id' => 'required|exists:artworks,id'
+//        ]);
         $artwork = Artwork::find($request->artwork_id);
         $user = auth('api')->user();
-
         if ($user->wallet->balance >= $artwork->price) {
             $user->wallet->balance -= $artwork->price;
             $user->wallet->point   += $artwork->point;
             $user->wallet->save();
-            $artwork->user->wallet->balance += $artwork->price;
-            $artwork->user->wallet->save();
-            // $artwork->sold = true;
-            // $artwork->save();
-            $user->artworks()->attach($artwork->id, $user->id);
+            $artwork->artist->user->wallet->balance += $artwork->price;
+            $artwork->artist->user->wallet->save();
+            $user->artworks()->attach($artwork->id);
 
             return response()->json([
-                'message' => 'Artwork bought successfully',
-                'artwork' => $artwork,
-                'user' => $user,
+                'message' => 'Artwork bought successfully'
             ], 200);
         } else {
             return response()->json([
@@ -62,7 +56,7 @@ class BuyController extends Controller
             $artwork->user->wallet->balance += $artwork->price;
             $artwork->user->wallet->save();
 
-            $gift_to_user->artworks()->attach($artwork->id, $gift_to_user);
+            $gift_to_user->artworks()->attach($artwork->id);
 
             return response()->json([
                 'message' => 'Artwork bought successfully',
